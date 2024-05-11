@@ -1,0 +1,35 @@
+.items {
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.item-box {
+    margin: 20px;
+    background-color: red;
+    border-radius: 20px;
+    width: 200px;
+    height: 200px;
+}
+figure {
+    margin: 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+img {
+    height: calc(0.8*200px);
+}
+
+#counter {
+    width: 30px;
+    text-align: center;
+}
+.count {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
