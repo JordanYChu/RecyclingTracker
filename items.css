@@ -1,3 +1,5 @@
+@import url("colors.css");
+
 .items {
     width: 100%;
     height: auto;
@@ -7,11 +9,15 @@
 }
 
 .item-box {
-    margin: 20px;
-    background-color: red;
+    margin: 10px;
+    background-color: var(--button-color);
     border-radius: 20px;
     width: 200px;
     height: 200px;
+    /*color: var(--text-darker);*/
+    background: linear-gradient(145deg, #14221c, #182921);
+    box-shadow:  10px 10px 20px #121511,
+             -10px -10px 20px #1a1f19;
 }
 figure {
     margin: 0;
