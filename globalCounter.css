@@ -73,13 +73,13 @@ meter {
 .meter-case { 
     margin: 20px;
     padding: 20px;
-    color:white;
+    color: white;
     background-color: var(--button-color);
     border-radius: 20px;
     /*color: var(--text-darker);*/
-    background: linear-gradient(145deg, #14221c, #182921);
-    box-shadow:  10px 10px 20px #121511,
-             -10px -10px 20px #1a1f19;
+    background: linear-gradient(145deg, #1f332a, #172720);
+    box-shadow:  12px 12px 28px #151714,
+    -12px -12px 28px #2c312b;
 }
 .meter-info {
     display: flex;

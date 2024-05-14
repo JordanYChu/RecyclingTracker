@@ -40,6 +40,7 @@ html, body {
 
 .main {
   margin: 0px;
+  color: var(--text);
   background-color: var(--background2);
   padding: 5px;
   margin-left: 160px; /* Same as the width of the sidenav */
