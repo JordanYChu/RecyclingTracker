@@ -39,3 +39,38 @@ img {
     justify-content: center;
     gap: 20px;
 }
+
+.item-view {
+    display: flex;
+    flex-direction: row;
+}
+.item-info {
+    background-color: red;
+    width: 30%;
+    height: 100%;
+}
+
+.box-title {
+    background-color: purple;
+    text-align: center;
+    font-size: 40px;
+}
+.box-image {
+    text-align: center;
+    background-color: darkblue;
+    height: 30%;
+}
+.description {
+    background-color:  green;
+    height: 20%;
+}
+
+h1 {
+    font-size: 40px;  
+    margin: 5px;
+}
+
+meter {
+    padding: 0px 20px;
+    width: 100%;
+}
