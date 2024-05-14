@@ -4,24 +4,59 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" type="text/css" href="style.css" />
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'/>
+    <link rel="stylesheet" href="globalCounter.css">
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Recycling Tracker</title>
 </head>
 <body>
     <div class="sidenav">
-        <a href="#User">About</a>
-        <a href="#Home">Services</a>
-        <a href="#Goals">Clients</a>
-        <a href="#History">Contact</a>
+        <a href="user.html">User</a>
+        <a href="home.html">Home</a>
+        <a href="goals.html">Goals</a>
+        <a href="history.html">History</a>
     </div>
 
     <div class="main">
         <div class="topbar">
-            stats
+            <meter id="global-meter" value="100" min="0" max="140" title="insert title here"></meter>
+            <ul class="total">
+                <li class="item-totals">item 2<span class="used-space">3</span></li>
+                <li class="item-totals">item 2<span class="used-space">69</span></li>
+                <li class="item-totals">item 3<span class="used-space">41</span></li>
+                <li class="item-totals">item 4<span class="used-space">43</span></li>
+                <li class="item-totals">item 5<span class="used-space">13</span></li>
+            </ul>
         </div>
 
-        <div class="items"> a</div>
+        <div class="achievement-list"> 
+            <div class="meter-case">
+                <div class="meter-info">
+
+                </div>
+                <meter value="15" max="20"></meter>
+            </div>
+            <div class="meter-case">
+                <div class="meter-info">
+                    <label id="item">Tesitng label</label>
+                    <label for="">100/1000</label>
+                </div>
+                <meter value="13" max="20"></meter>
+            </div>
+            <div class="meter-case">
+                <div class="meter-info"></div>
+                <meter value="5" max="20"></meter>
+            </div>
+            <div class="meter-case">
+                <div class="meter-info"></div>
+                <meter value="1" max="20"></meter>
+            </div>
+            <div class="meter-case">
+                <div class="meter-info"></div>
+                <meter value="0" max="20"></meter>
+            </div>
+
+        </div>
         
     </div>
    
