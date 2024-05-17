@@ -5,7 +5,26 @@
     <link rel="stylesheet" href="/static/style.css"/>
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'/>
     <link rel="stylesheet" href="/static/items.css"/>
+    <link rel="stylesheet" href="/static/item-view-tray.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script>
+        function fn() {
+            const a = document.getElementsByClassName("item-info");
+            if($(a).hasClass('dismiss')) {
+                $(a).removeClass('dismiss').addClass('selected').show();
+            }
+            else if($(a).hasClass('selected')) {
+                $(a).removeClass('selected').addClass("dismiss");
+            }
+        }
+    </script>
+    <script>
+        function setGoal() {
+            //pop up
+            
 
+        }
+    </script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Recycling Tracker</title>
 </head>
@@ -20,56 +39,75 @@
     <div class="main">
         <div class="topbar">
             <h1>Today's Goal</h1>
-            <meter value="10" min="0" max="123">asd</meter>
+            <div class="daily-goal-container">
+                <progress value="10" max="123"></progress>
+                <button id="goal-submit" onclick="setGoal()">Set Goal</button>
+            </div>
         </div>
         <div class="item-view">
             <div class="items"> 
                 <div id="1" class="item-box">
+                    <div class="item-title">
+                        <h2>Item</h2>
+                        <input type="image" src="../icons/more-info.png" onclick="fn()" id="more-info" />
+                    </div>
                     <figure>
                         <img src="https://cdn.iconscout.com/icon/free/png-256/free-trash-can-3244301-2727406.png?f=webp" alt="">
                     </figure>
                     <div class="count">
-                        <button id="minus">-</button>
+                        <img id="minus" src="../icons/minus-icon.png">
                         <label id="counter">12</label>
-                        <button id="plus">+</button>
+                        <input type="image" src="../icons/plus-icon.png" onclick="fn()" id="plus" />
                     </div>
                 </div>
                 <div id="2" class="item-box">
+                    <div class="item-title">
+                        <h2>Item</h2>
+                        <input type="image" src="../icons/more-info.png" onclick="fn()" id="more-info" />
+                    </div>
                     <figure>
                         <img src="https://cdn.iconscout.com/icon/free/png-256/free-trash-can-3244301-2727406.png?f=webp" alt="">
                     </figure>
                     <div class="count">
-                        <button id="minus">-</button>
+                        <img id="minus" src="../icons/minus-icon.png">
                         <label id="counter">12</label>
-                        <button id="plus">+</button>
+                        <input type="image" src="../icons/plus-icon.png" onclick="fn()" id="plus" />
                     </div>
                 </div>
                 <div id="3" class="item-box">
+                    <div class="item-title">
+                        <h2>Item</h2>
+                        <input type="image" src="../icons/more-info.png" onclick="fn()" id="more-info" />
+                    </div>
                     <figure>
                         <img src="https://cdn.iconscout.com/icon/free/png-256/free-trash-can-3244301-2727406.png?f=webp" alt="">
                     </figure>
                     <div class="count">
-                        <button id="minus">-</button>
+                        <img id="minus" src="../icons/minus-icon.png">
                         <label id="counter">12</label>
-                        <button id="plus">+</button>
+                        <input type="image" src="../icons/plus-icon.png" onclick="fn()" id="plus" />
                     </div>
                 </div>
                 <div id="4" class="item-box">
+                    <div class="item-title">
+                        <h2>Item</h2>
+                        <input type="image" src="../icons/more-info.png" onclick="fn()" id="more-info" />
+                    </div>
                     <figure>
                         <img src="https://cdn.iconscout.com/icon/free/png-256/free-trash-can-3244301-2727406.png?f=webp" alt="">
                     </figure>
                     <div class="count">
-                        <button id="minus">-</button>
+                        <img id="minus" src="../icons/minus-icon.png">
                         <label id="counter">12</label>
-                        <button id="plus">+</button>
+                        <input type="image" src="../icons/plus-icon.png" onclick="fn()" id="plus" />
                     </div>
                 </div>
             </div>
-            <div class="item-info">
-                <div class="box-title">ITEM NAME</div>
-                <div class="box-image">COOL IMAGE</div>
-                <div class="description">Description</div>
-                <div class="item-list"></div>
+            <div id="item-tray" class="item-info dismiss">
+                <div class="box-title rounded-box">ITEM NAME</div>
+                <div class="box-image rounded-box">COOL IMAGE</div>
+                <div class="box-description rounded-box">Description</div>
+                <div class="box-related-items rounded-box">RELATED ITEMS</div>
             </div>
         </div>
     </div>

@@ -10,6 +10,7 @@ html, body {
     margin: 0%;
     background-color: var(--background2);
     height: 100%;
+    overflow: hidden;
 }
 
 .sidenav {
@@ -59,9 +60,9 @@ html, body {
 .topbar {
     background-color: var(--topbar);
     height: 125px;
-    border-bottom: 6px solid var(--background);
+    border-bottom: 10px solid var(--background);
     margin: 0px;
-    padding: 0px;
+    padding: 10px;
 }
 
 .items {
