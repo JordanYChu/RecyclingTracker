@@ -9,17 +9,27 @@
     flex-wrap: wrap;
 }
 
+
 .item-box {
     margin: 10px;
     background-color: var(--button-color);
+    transition: 300ms ease-out;
     border-radius: 20px;
     width: 200px;
     height: 200px;
     /*color: var(--text-darker);*/
-    background: linear-gradient(145deg,  #1d3027, #182922);
+    background: linear-gradient(145deg,  #463420, #3b2a16);
     box-shadow:  10px 10px 20px #121511,
              -10px -10px 20px #1a1f19;
 }
+
+.item-box:hover {
+    box-shadow:  19px 19px 25px #181b18,
+             -19px -19px 25px #1a1f19;
+    width: 205px;
+    height: 205px;
+}
+
 figure {
     margin: -10px 0px;
     width: 100%;
