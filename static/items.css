@@ -7,18 +7,20 @@
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+    justify-content: flex-start;
+    align-content: flex-start;
 }
 
 
 .item-box {
-    margin: 10px;
-    background-color: var(--button-color);
+    margin: 20px;
     transition: 300ms ease-out;
     border-radius: 20px;
     width: 200px;
     height: 200px;
     /*color: var(--text-darker);*/
-    background: linear-gradient(145deg,  #463420, #3b2a16);
+    background-image: url("../static/icons/wood-texture.png"), linear-gradient(145deg,  #463420, #3b2a16);
+    background-size: 200px 200px;
     box-shadow:  10px 10px 20px #121511,
              -10px -10px 20px #1a1f19;
 }
@@ -31,24 +33,36 @@
 }
 
 figure {
-    margin: -10px 0px;
+    margin: 0;
     width: 100%;
     display: flex;
     justify-content: center;
+    height: calc(0.6*200px);
+
 }
 
-img {
-    height: calc(0.7*200px);
+figure > img {
+    height: 60%;
+    padding: 5%;
+    margin: auto;
+    background-color: var(--background2);
+    border-radius: 20px;
+    border: #121511 4px solid; 
 }
 
 #counter {
-    width: 30px;
+    font-size: 20px;
+    width: 70px;
     text-align: center;
+    background: red;
+    border-radius: 20px;
+    background: var(--background2);
+    border: #121511 4px solid;
 }
 .count {
     display: flex;
     justify-content: center;
-    gap: 20px;
+    gap: 5px;
 }
 
 .item-view {
@@ -57,6 +71,11 @@ img {
     height: 100%;
     margin: 0%;
     padding: 0px;
+    background-image: url(../static/icons/trees.png);
+    background-attachment: fixed;
+    background-repeat: repeat-x;
+    background-position:  bottom left;
+    background-size: 1280px 480px ;
 }
 .item-info {
     background-color: var(--background);
@@ -100,29 +119,40 @@ img {
     transform: translate(-10px, -40%);
     width: 24px;
     height: 24px;
+    background-color: #121511;
+    border-radius: 100%;
+    border: 3px solid #121511;
 }
 
 h2 {
+    font-weight: 100;
     text-align: center;
-    color: white;
-    font-size: 20px;  
+    color: var(--text);
+    font-size: 15px;  
     margin: 10px 0px 0px 0px;
-    padding: 0px;
-    display: inline;
+    display: inline-block;
+    border-radius: 20px;
+    width: 105px;
+    background: var(--background2);
+    border: #121511 4px solid;
 }
 h1 {
-    margin: 0px;
+    background: var(--background);
+    border-radius: 10px;
+    padding: 15px;
+    margin: 0 10px;
     font-size: 30px;
+    display: inline-block;
 }
 
 .daily-goal-container {
     display: flex;
-    padding: 20px 20px;
+    padding: 10px 10px;
     align-items: center;
 }
 
 progress {
-    accent-color: green;
+    accent-color: #3b2a16;
     margin: 0px;
     padding: 0px;
     height: 50px;
@@ -148,4 +178,11 @@ progress {
 #plus, #minus{
     width: 32px;
     height: 32px;
+    border-radius: 100%;
+    background: #121511;
+}
+
+#background-gradient {
+    background: radial-gradient(#3b4439, var(--background2));
+    height: 100%;
 }
