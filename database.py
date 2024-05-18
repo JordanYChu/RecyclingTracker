@@ -1,6 +1,6 @@
 import mysql.connector
 
-pwd = "sDif$n3!/df30192"
+pwd = "temp"
 
 db = mysql.connector.connect(
   host="localhost",
