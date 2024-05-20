@@ -84,7 +84,8 @@ meter {
     color: white;
     background-color: var(--button-color);
     border-radius: 20px;
-    background: linear-gradient(145deg,  #463420, #3b2a16);
+    /*color: var(--text-darker);*/
+    background: linear-gradient(90deg,  #463420, #3b2a16);
     box-shadow:  12px 12px 28px #151714,
     -12px -12px 28px #2c312b;
 }
