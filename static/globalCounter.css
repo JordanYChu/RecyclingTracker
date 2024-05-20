@@ -1,6 +1,9 @@
+@import url("colors.css");
+
 #global-meter {
-    padding: 0px 40px;
     width: 100%;
+    height: 80px;
+    margin: 0px 0px 10px 0px;
 }
 #global-meter::-webkit-meter-optimum-value {
     background: linear-gradient( 90deg, 
@@ -16,50 +19,54 @@
 }
 
 .total {
-    
+    margin-top: 20px;
     font-size: 15px;
-    margin: 2em 40px;
     padding: 0px 0px;
     list-style-type: none;
-    width:550px;
-    display: block;
-    position: relative;
+    width: 100%;
+    position: relative
 }
 
 .item-totals{
-  
   outline: 0px solid #c00;
   float: left;
-  width: 110px;
-  padding-left: 5px;
-
-  -webkit-box-sizing: border-box;
-     -moz-box-sizing: border-box;
-          box-sizing: border-box;
+  width: calc(100% / 8);
+  text-align: left;
+  text-indent: 10px ;
 }
 
 .item-totals::before {
   
   content: '';
   width: 100%;
-  height: 10px;
+  height: 15px;
   outline: 0px solid #000;
   position: absolute;
   top: -20px;
-  left: 0;
-  border-radius: 2px;
+  left: 0px;
+
+  border-radius: 20px;
   
   background-image: linear-gradient( 90deg, 
-                                     #8bcf69 20%, 
-                                     #e6d450 20%,
-                                     #e6d450 40%,
-                                     #f28f68 40%,
-                                     #f28f68 60%,
-                                     #cf82bf 60%,
-                                     #cf82bf 80%,
-                                     #719fd1 80%,
-                                     #719fd1 100%);
-
+                                    var(--pistachio) 0%,
+                                    var(--pistachio) 12.5%,
+                                    var(--pistachio-3) 12.5%,
+                                    var(--pistachio-3) 25%,
+                                    var(--pigment-green) 25%,
+                                    var(--pigment-green) 37.5%,
+                                    var(--viridian) 37.5%,
+                                    var(--viridian) 50%,
+                                    var(--caribbean-current) 50%,
+                                    var(--caribbean-current) 62.5%,
+                                    var(--midnight-green) 62.5%,
+                                    var(--midnight-green) 75%,
+                                    var(--oxford-blue) 75%,
+                                    var(--oxford-blue) 87.5%,
+                                    var(--oxford-blue-2) 87.5%,
+                                    var(--oxford-blue-2) 100%);
+}
+.achievement-list {
+    overflow-y: scroll;
 }
 
 .achievement-list meter {
@@ -67,21 +74,65 @@
 }
 
 meter {
-    height: 40px;
+    height: 50px;
+    margin: 0px 0px -10px 0px;
 }
 
 .meter-case { 
     margin: 20px;
-    padding: 20px;
+    padding: 10px;
     color: white;
     background-color: var(--button-color);
     border-radius: 20px;
-    /*color: var(--text-darker);*/
-    background: linear-gradient(145deg, #1f332a, #172720);
+    background: linear-gradient(145deg,  #463420, #3b2a16);
     box-shadow:  12px 12px 28px #151714,
     -12px -12px 28px #2c312b;
 }
 .meter-info {
     display: flex;
     justify-content: space-between;
+}
+
+.meter-info > label,button {
+    font-size: 20px;
+    color: white;
+    background: #21251e;
+    border-radius: 20px;
+    border: solid 5px #241c13;
+    padding: 5px 20px;
+}
+
+#item-name {
+    width: 150px;
+}
+
+/* Each Meter Color*/
+#soft-plastic meter::-webkit-meter-optimum-value {
+    background-color: var(--pistachio);
+}
+#hard-plastic  meter::-webkit-meter-optimum-value {
+    background-color: var(--pistachio-3);
+}
+#glass  meter::-webkit-meter-optimum-value {
+    background-color: var(--pigment-green);
+}
+
+#paper  meter::-webkit-meter-optimum-value {
+    background-color: var(--viridian);
+}
+
+#cardboard  meter::-webkit-meter-optimum-value {
+    background-color: var(--caribbean-current);
+}
+
+#metal  meter::-webkit-meter-optimum-value {
+    background-color: var(--midnight-green);
+}
+
+#textiles  meter::-webkit-meter-optimum-value {
+    background-color: var(--oxford-blue);
+}
+
+#styrofoam  meter::-webkit-meter-optimum-value {
+    background-color: var(--oxford-blue-2);
 }

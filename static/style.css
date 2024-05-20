@@ -62,7 +62,7 @@ html, body {
     height: 125px;
     border-bottom: 10px solid var(--background);
     margin: 0px;
-    padding: 10px;
+    padding: 30px;
 }
 
 .items {
