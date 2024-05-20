@@ -36,6 +36,9 @@
     box-shadow:  10px 20px 20px #121511,
              -10px -10px 20px #1a1f19;
 }
+.item-box:hover .item-img {
+    filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(3deg) brightness(104%) contrast(102%);
+}
 
 figure {
     margin: 0;
@@ -46,14 +49,22 @@ figure {
 
 }
 
-figure > img {
+figure > div {
     height: 60%;
     padding: 5%;
     margin: auto;
-    background: radial-gradient(#3b4439, var(--background2));
     border-radius: 20px;
+    background: radial-gradient(#141813, var(--background2));
     border: #121511 4px solid; 
 }
+
+/* color of image */
+.item-img {
+    transition: 300ms ease-out;
+    height: 100%;
+    filter: invert(57%) sepia(6%) saturate(86%) hue-rotate(71deg) brightness(91%) contrast(92%);
+}
+
 
 #counter {
     font-size: 20px;
@@ -83,34 +94,76 @@ figure > img {
     background-size: 1280px 480px ;
 }
 .item-info {
+    box-sizing: border-box;
     background-color: var(--background);
     width: 30%;
     height: 100%;
+    box-shadow: -10px 0px 30px #121511;
+    z-index: 0;
 }
 .rounded-box {
+    box-sizing: border-box;
     margin: 10px;
     background-color: var(--background2);
-    border-radius: 20px;
+    border-radius: 10px;
 }
 
 .box-title {
-    margin: 0px 0px 0px 10px;
-    text-align: center;
+    margin: 0px 10px 0px 10px;
+    height: calc(10% - 10px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.box-title > div {
+    display: flex;
     font-size: 40px;
 }
+
 .box-image {
     text-align: center;
-    height: 30%;
-}
-.box-description {
-    text-align: center;
-    height: 20%;
-}
-.box-related-items {
-    text-align: center;
-    height: 34%;
+    height: calc(30% - 10px);
+    padding: 20px;
+    background: radial-gradient(#141813, var(--background2));
 }
 
+.box-image img {
+    height: 100%;
+    filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(3deg) brightness(104%) contrast(102%);
+}
+
+.box-description {
+    padding: 20px;
+    text-align: center;
+    height: calc(20% - 10px);
+}
+.box-description p {
+    font-size: 18px;
+}
+
+.box-related-items {
+    padding: 20px;
+    text-align: center;
+    height: calc(40% - 10px);
+}
+
+.box-related-items ul {
+    list-style-type: none;
+    padding-left: 0;
+    padding-top: 0;
+    margin-top: 10px;
+}
+
+.item-heading {
+    font-weight: 100;
+    font-size: 30px;
+    text-align: center;
+    margin: 10px 10px;
+    padding: 5px 30px;
+    border-radius: 40px;
+    border: #121511 solid 5px;
+    background-color:#141813 ;
+}
 
 .item-title {
     text-align: center;

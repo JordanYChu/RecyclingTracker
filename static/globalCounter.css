@@ -27,7 +27,6 @@
 }
 
 .item-totals{
-  
   outline: 0px solid #c00;
   float: left;
   width: 110px;
@@ -77,7 +76,7 @@ meter {
     background-color: var(--button-color);
     border-radius: 20px;
     /*color: var(--text-darker);*/
-    background: linear-gradient(145deg, #1f332a, #172720);
+    background: linear-gradient(90deg,  #463420, #3b2a16);
     box-shadow:  12px 12px 28px #151714,
     -12px -12px 28px #2c312b;
 }

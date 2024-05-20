@@ -81,6 +81,7 @@ h3 {
     border-bottom: 10px solid var(--background);
     margin: 0px;
     padding: 10px;
+    z-index: 1;
 }
 
 .items {
