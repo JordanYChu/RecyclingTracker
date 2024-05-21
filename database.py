@@ -1,6 +1,6 @@
 import mysql.connector
 
-pwd = "temp"
+pwd = "TEMP"
 
 db = mysql.connector.connect(
   host="localhost",
@@ -23,6 +23,14 @@ def addInteraction(item, quantity, date, user_id):
 
     cursor.execute(sql, val)
 
+def getItems(user, date):
+    sql = "SELECT item, quantity FROM interactions WHERE user_id=%s AND date=%s"
+    val = (user, date)
+
+    cursor.execute(sql, val)
+
+    return cursor.fetchall()
+
 #cursor.execute("CREATE TABLE accounts (id INT AUTO_INCREMENT PRIMARY KEY, username VARCHAR(255), email VARCHAR(255), password VARCHAR(255))")
 #cursor.execute("CREATE TABLE interactions (id INT AUTO_INCREMENT PRIMARY KEY, item VARCHAR(255), quantity INT, date DATE, user_id INT, FOREIGN KEY (user_id) REFERENCES accounts(id));")
 
@@ -36,9 +44,9 @@ def addInteraction(item, quantity, date, user_id):
 db.commit()
 
 #cursor.execute("SELECT * FROM accounts")
-cursor.execute("SELECT * FROM interactions WHERE item=\"Glass\"")
+#cursor.execute("SELECT * FROM interactions WHERE item=\"Glass\"")
 
-result = cursor.fetchall()
+result = getItems(2, '2024-05-16')
 
 for x in result:
   print(x)
