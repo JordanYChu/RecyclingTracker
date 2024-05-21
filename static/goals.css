@@ -1,0 +1,93 @@
+@import url("colors.css");
+
+.secondary {
+    height: 100%;
+}
+
+.date-container {
+    height: 125px;
+    padding: 25px;
+    padding-bottom: 0px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 25px;
+
+}
+#date-label {
+    margin: 0;
+    font-size: 75px;    
+    text-align: center;
+    line-height: 125px;
+}
+#left-arrow {
+
+}
+#left-arrow {
+
+}
+
+.stats-container {
+    display: flex;
+    flex-flow: row;
+    height: 100%;
+}
+
+.stats {
+    width: 60%;
+}.day-total-stats {
+    width: 40%
+}
+ul {
+    margin-left: 0px;
+    padding-left: 0px;
+}
+.item-stat {
+    list-style: none;
+    margin: 20px;
+    transition: 300ms ease-out;
+    border-radius: 20px;
+    width: 90%;
+    height: 50px;
+    background-image: linear-gradient(90deg,  #463420 40%, #2c2115 40%,#463521 45%);
+    box-shadow:  10px 10px 20px #121511,
+             -10px -10px 20px #1a1f19;
+}
+li.item-stat {
+    font-size: 25px;
+    line-height: 50px;
+    padding: 0 0 0 25px;
+}
+
+#stat-title {
+    display: block;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+}
+
+.circle-progress {
+    margin: auto;
+    margin-top: 50px;
+    width: 400px;
+    height: 400px;
+    border-radius: 50%;
+    background: conic-gradient(#463420 33%, white 0%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.circle-progress::before {
+    content: "100/1000";
+    position: absolute;
+    height: 300px;
+    width: 300px;
+    border-radius: 50%;
+    background: radial-gradient( var(--background2), #3b4439);
+    font-size: 50px;
+    line-height: 300px;
+    text-align: center;
+    border: solid var(--topbar) 10px;
+}
+
