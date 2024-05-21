@@ -1,6 +1,6 @@
 import mysql.connector
 
-pwd = "FbN2#jd^%45C1718"
+pwd = "temp"
 
 db = mysql.connector.connect(
   host="localhost",
