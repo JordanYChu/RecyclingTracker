@@ -8,4 +8,14 @@
     --accent: #81bda2;
     --text: #e5ece1;
     --text-darker: #838583;
+
+    /* global counter colors */
+    --pistachio: #c0d57bff;
+    --pistachio-3: #95c464ff;
+    --pigment-green: #489953ff;
+    --viridian: #33897bff;
+    --caribbean-current: #286c6bff;
+    --midnight-green: #19434dff;
+    --oxford-blue: #14273eff;
+    --oxford-blue-2: #0d0c27ff;
 } 
