@@ -1,4 +1,8 @@
 @import url("colors.css");
+.topbar{
+    padding-left: 30px;
+    padding-right: 30px;
+}
 
 #global-meter {
     width: 100%;
