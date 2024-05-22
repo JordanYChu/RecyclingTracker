@@ -13,6 +13,9 @@ def history():
     return render_template('history.html')
 
 
+
+
+
 @app.route('/data')
 def data():
     return jsonify({'name': 'grouch'})
