@@ -5,14 +5,14 @@
     <link rel="stylesheet" type="text/css" href="/static/style.css" />
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'/>
     <link rel="stylesheet" href="/static/globalCounter.css">
-
+    <script src="test.js" defer></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Recycling Tracker</title>
 </head>
 <body>
     <div class="sidenav">
         
-        <a href="/user">
+        <a id="user" href="/user">
             <svg fill="currentColor" class="logo" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"> <title>user-profile-circle-solid</title> <g id="Layer_2" data-name="Layer 2"> <g id="invisible_box" data-name="invisible box"> <rect width="48" height="48" fill="none"/> </g> <g id="icons_Q2" data-name="icons Q2"> <path d="M24,2A22,22,0,1,0,46,24,21.9,21.9,0,0,0,24,2Zm0,8a8,8,0,1,1-8,8A8,8,0,0,1,24,10Zm0,32a18.2,18.2,0,0,1-12.2-4.8A26.4,26.4,0,0,1,24,34a26.4,26.4,0,0,1,12.2,3.2A18.2,18.2,0,0,1,24,42Z"/> </g> </g> </svg>
             <h3>User</h3>
         </a>
@@ -33,7 +33,7 @@
 
     <div class="main">
         <div class="topbar">
-            <meter id="global-meter" value="100" min="0" max="140" title="insert title here"></meter>
+            <meter id="global-meter" value="100" min="0" max="100" title="insert title here"></meter>
             <ul class="total">
                 <li class="item-totals">Soft Plastic</li>
                 <li class="item-totals">Hard Plastic</li>
@@ -52,7 +52,7 @@
                     <label id="item-total">100/1000</label>
                     <button class="goal-set">Set Goal</button>
                 </div>
-                <meter value="13" max="20"></meter>
+                <meter id="123" value="13" max="20"></meter>
             </div>
             <div class="meter-case" id="hard-plastic">
                 <div class="meter-info">
