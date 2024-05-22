@@ -9,17 +9,34 @@
     height: 80px;
     margin: 0px 0px 10px 0px;
 }
+#global-meter {
+    --soft-plastic: 0%;
+    --hard-plastic: 0%;
+    --glass: 0%;
+    --paper: 0%;
+    --cardboard: 0%;
+    --metal: 0%;
+    --textiles: 0%;
+    --styrofoam: 0%;
+}
 #global-meter::-webkit-meter-optimum-value {
     background: linear-gradient( 90deg, 
-                                     #8bcf69 5%, 
-                                     #e6d450 5%,
-                                     #e6d450 15%,
-                                     #f28f68 15%,
-                                     #f28f68 55%,
-                                     #cf82bf 55%,
-                                     #cf82bf 95%,
-                                     #719fd1 95%,
-                                     #719fd1 100%);
+                                    var(--pistachio) 0%,
+                                    var(--pistachio) var(--soft-plastic),
+                                    var(--pistachio-3) var(--soft-plastic),
+                                    var(--pistachio-3) var(--hard-plastic),
+                                    var(--pigment-green) var(--hard-plastic),
+                                    var(--pigment-green) var(--glass),
+                                    var(--viridian) var(--glass),
+                                    var(--viridian) var(--paper),
+                                    var(--caribbean-current) var(--paper),
+                                    var(--caribbean-current) var(--cardboard),
+                                    var(--midnight-green) var(--cardboard),
+                                    var(--midnight-green) var(--metal),
+                                    var(--oxford-blue) var(--metal),
+                                    var(--oxford-blue) var(--textiles),
+                                    var(--oxford-blue-2) var(--textiles),
+                                    var(--oxford-blue-2) 100%);
 }
 
 .total {
