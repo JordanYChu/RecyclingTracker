@@ -1,5 +1,5 @@
 console.log("Running Test.js");
-const categories = [4,1,1,1,10,1,1,1]
+const categories = [4,1,10,1,10,1,1,1]
 let total = 0
 for(let i = 0; i < 8; i++) {
     total += categories[i];
@@ -7,7 +7,7 @@ for(let i = 0; i < 8; i++) {
 console.log(total)
 
 
-function setRatio(categories, total) {
+function updateTotalMeter(categories, total) {
     console.log("Inside Ratio")
     const meter = document.getElementById("global-meter");
     //calculate percentages
@@ -28,7 +28,7 @@ function setRatio(categories, total) {
     cssText += "--styrofoam: " + percentages[7]*100 + "%;";
     meter.setAttribute("style",  cssText)
 }
-setRatio(categories,total)
+updateTotalMeter(categories,total)
 
 function updateItemGoal() {
 
