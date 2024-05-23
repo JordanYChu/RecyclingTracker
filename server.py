@@ -1,4 +1,5 @@
 from flask import Flask, render_template, jsonify
+from flask import request
 
 
 app = Flask(__name__,template_folder='templates', static_folder='static')
@@ -17,5 +18,13 @@ def history():
 
 @app.route('/data')
 def data():
-    return jsonify({'name': 23})
+    return jsonify({'soft-plastic': 23, "hard-plastic": 65})
 
+
+#temp variables for testing (soon to be database variables)
+@app.route('/retrieve-data', methods=['POST','GET'])
+def retrieve():
+    json = request.json
+    print(json["soft-plastic"])
+    print(json["hard-plastic"])
+    return jsonify({'title': 1, "body": 3})
