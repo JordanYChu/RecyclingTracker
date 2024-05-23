@@ -2,12 +2,17 @@
 
 .secondary {
     height: 100%;
+    background-image: url(../static/icons/trees.png);
+    background-attachment: fixed;
+    background-repeat: repeat-x;
+    background-position:  bottom left;
+    background-size: 1280px 480px ;
 }
+
 
 .date-container {
     height: 125px;
     padding: 25px;
-    padding-bottom: 0px;
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -77,6 +82,8 @@ li.item-stat {
     display: flex;
     justify-content: center;
     align-items: center;
+    box-shadow:  20px 20px 50px #121511,
+             -20px -20px 30px #1a1f19;
 }
 .circle-progress::before {
     content: "100/1000";
