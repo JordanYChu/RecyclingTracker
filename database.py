@@ -11,7 +11,8 @@ db = mysql.connector.connect(
 
 cursor = db.cursor()
 
-def addUser(username, email, password):
+
+def addUser(username, email, password): 
     sql = "INSERT INTO accounts (username, email, password) VALUES (%s, %s, %s)"
     val = (username, email, password)
 
@@ -22,6 +23,8 @@ def addItem(item, quantity, date, user_id):
     val = (item, quantity, date, user_id)
 
     cursor.execute(sql, val)
+
+
 
 def getItems(user, date):
     sql = "SELECT item, quantity FROM items WHERE user_id=%s AND date=%s"
@@ -38,6 +41,7 @@ def editItem(user, item, quantity, date):
     cursor.execute(sql, val)
 
     return cursor.fetchall()
+
 
 def getTotalItems(user, item):
     sql = "SELECT quantity FROM items WHERE user_id=%s AND item=%s"

@@ -1,5 +1,6 @@
 from flask import Flask, render_template, jsonify
 
+
 app = Flask(__name__,template_folder='templates', static_folder='static')
 
 @app.route('/')
@@ -14,10 +15,7 @@ def history():
 
 
 
-
-
 @app.route('/data')
 def data():
-    return jsonify({'name': 'grouch'})
+    return jsonify({'name': 23})
 
-this is a test
