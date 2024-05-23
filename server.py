@@ -1,6 +1,6 @@
 from flask import Flask, render_template, jsonify
 from flask import request
-
+from database import *
 
 app = Flask(__name__,template_folder='templates', static_folder='static')
 
@@ -13,8 +13,6 @@ def goals():
 @app.route('/history')
 def history():
     return render_template('history.html')
-
-
 
 @app.route('/data')
 def data():

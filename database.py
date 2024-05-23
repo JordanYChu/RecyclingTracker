@@ -28,7 +28,7 @@ def addItem(item, quantity, date, user_id):
 
 def getItems(user, date):
     sql = "SELECT item, quantity FROM items WHERE user_id=%s AND date=%s"
-    val = (user, date)
+    
 
     cursor.execute(sql, val)
 
