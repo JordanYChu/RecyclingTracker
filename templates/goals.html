@@ -5,6 +5,7 @@
     <link rel="stylesheet" type="text/css" href="/static/style.css" />
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'/>
     <link rel="stylesheet" href="/static/goals.css">
+    <script src="/static/scripts/historyPage.js"></script>
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Recycling Tracker</title>
@@ -42,19 +43,18 @@
             <div class="stats-container">
                 <div class="day-total-stats">
                     <div class="circle-progress">
-                        
                     </div>
                 </div>
                 <div class="stats"> 
                     <ul>
-                        <li class="item-stat">Soft Plastic</li>
-                        <li class="item-stat">Hard Plastic</li>
-                        <li class="item-stat">Glass</li>
-                        <li class="item-stat">Paper</li>
-                        <li class="item-stat">Cardboard</li>
-                        <li class="item-stat">Metal</li>
-                        <li class="item-stat">Textiles</li>
-                        <li class="item-stat">Styrofoam</li>
+                        <li id="soft-plastic" class="item-stat">Soft Plastic <div class="item-count">0</div></li>
+                        <li id="hard-plastic" class="item-stat">Hard Plastic<div class="item-count">0</div></li>
+                        <li id="glass" class="item-stat">Glass<div class="item-count">0</div></li>
+                        <li id="paper" class="item-stat">Paper<div class="item-count">0</div></li>
+                        <li id="cardboard" class="item-stat">Cardboard<div class="item-count">0</div></li>
+                        <li id="metal" class="item-stat">Metal<div class="item-count">0</div></li>
+                        <li id="electronics" class="item-stat">Textiles<div class="item-count">0</div></li>
+                        <li id="styrofoam" class="item-stat">Styrofoam<div class="item-count">0</div></li>
                     </ul>
                 </div>
             </div>

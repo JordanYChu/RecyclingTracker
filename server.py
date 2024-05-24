@@ -25,6 +25,9 @@ def data():
 @app.route('/retrieve-data', methods=['POST','GET'])
 def retrieve():
     json = request.json
-    print(json["soft-plastic"])
-    print(json["hard-plastic"])
+    #
     return jsonify({'title': 1, "body": 3})
+
+@app.route('/total-item-data', methods=['GET'])
+def retrieve():
+    return 123

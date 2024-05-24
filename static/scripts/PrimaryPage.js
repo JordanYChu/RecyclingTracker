@@ -14,12 +14,15 @@ const preloadData = async () => {
     }
 
 }
-const setData = async (item_id) => {
+preloadData()
+
+
+const getData = async (item_id) => {
     let item_count = await getItemCount(item_id);
     let counter_label = document.getElementById(item_id).getElementsByClassName("counter")[0];
     counter_label.innerHTML = item_count;
 }
-preloadData()
+
 
 const update = {
     "soft-plastic": 31,
@@ -34,8 +37,8 @@ const options = {
     body: JSON.stringify(update)
     };
 
-function fn() {
-    fetch('http://127.0.0.1:5000/retrieve-data', options)
+function fn2() {
+    fetch('http://127.0.0.1:5000/retrieve-data?is-this-working', options)
     .then(data => {
         if (!data.ok) {
             throw Error(data.status);
@@ -49,11 +52,12 @@ function fn() {
         });
 }
 
-const a =document.getElementById("soft-plastic");
+//adding event listener for plus/minus icon
+const a = document.getElementById("soft-plastic");
 const b = a.getElementsByClassName("plus")[0]
 
 b.addEventListener("click", function() {
-    fn()
+    fn2()
     // const counter_el = b.previousElementSibling;
     // counter_el.innerHTML = Number(counter_el.innerHTML) + 1;   
     // updateItemCount("soft-plastic")

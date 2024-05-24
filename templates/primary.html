@@ -11,6 +11,7 @@
     <script src="/static/scripts/PrimaryPage.js" defer></script>
     <script>
         function fn() {
+            console.log("fn()")
             const a = document.getElementsByClassName("item-info");
             if($(a).hasClass('dismiss')) {
                 $(a).removeClass('dismiss').addClass('selected').show();
