@@ -1,11 +1,13 @@
 import mysql.connector
 
 pwd = "temp"
+hst = "temp"
 
 db = mysql.connector.connect(
-  host="localhost",
-  user="root",
+  host=hst,
+  user="admin",
   password=pwd,
+  port="3306",
   database="main"
 )
 
@@ -31,7 +33,7 @@ def addItem(item, quantity, date, user_id):
 
 def getItems(user, date):
     sql = "SELECT item, quantity FROM items WHERE user_id=%s AND date=%s"
-    
+    val = (user, date)
 
     cursor.execute(sql, val)
 
@@ -45,9 +47,6 @@ def editItem(user, item, quantity, date):
 
     return cursor.fetchall()
 
-# default user = 1
-# item = String of item name
-# returns an integer
 def getTotalItems(user, item):
     sql = "SELECT quantity FROM items WHERE user_id=%s AND item=%s"
     val = (user, item)
@@ -62,33 +61,13 @@ def getTotalItems(user, item):
 
     return sum
 
-def viewTable(table):
-    cursor.execute("SELECT * FROM items")
-
-    result = cursor.fetchall()
-
-    for x in result:
-      print(x)
-    return
-
-
-
-#cursor.execute("CREATE TABLE accounts (id INT AUTO_INCREMENT PRIMARY KEY, username VARCHAR(255), email VARCHAR(255), password VARCHAR(255))")
-#cursor.execute("CREATE TABLE items (id INT AUTO_INCREMENT PRIMARY KEY, item VARCHAR(255), quantity INT, date DATE, user_id INT, FOREIGN KEY (user_id) REFERENCES accounts(id));")
-#cursor.execute("CREATE TABLE goals (id INT AUTO_INCREMENT PRIMARY KEY, item VARCHAR(255), quantity INT, date DATE, user_id INT, FOREIGN KEY (user_id) REFERENCES accounts(id));")
-#addUser("Jordan50", "Jordan50@outlook.com", "Secret123")
 #addUser("Isitha2", "Isitha29@outlook.com", "David333")
 
-#addItem("Cardboard", 10, '2024-05-17', 1)
-#addItem("Glass", 9, '2024-05-15', 1)
-#addItem("Glass", 5, '2024-05-16', 2)
+#addItem("cardboard", 5, '2024-05-17', 1)
 
-#editItem(2, "Glass", 3, '2024-05-16')
-#result = getItems(2, '2024-05-16')
+val = getItems(1, "2024-05-15")
 
-db.commit()
+for x in val:
+    print(x)
 
-viewTable("items")
-
-result = getTotalItems(2, "Glass")
-print(result)
+#db.commit()
