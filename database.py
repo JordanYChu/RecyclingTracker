@@ -11,12 +11,17 @@ db = mysql.connector.connect(
 
 cursor = db.cursor()
 
-
-def addUser(username, email, password): 
+def addUser(username, email, password):
     sql = "INSERT INTO accounts (username, email, password) VALUES (%s, %s, %s)"
     val = (username, email, password)
 
     cursor.execute(sql, val)
+
+def getUserId(username):
+    sql = "SELECT id FROM accounts WHERE username=%s"
+    val = (username)
+
+    return cursor.fetchall()
 
 def addItem(item, quantity, date, user_id):
     sql = "INSERT INTO items (item, quantity, date, user_id) VALUES (%s, %s, %s, %s)"
@@ -24,11 +29,9 @@ def addItem(item, quantity, date, user_id):
 
     cursor.execute(sql, val)
 
-
-
 def getItems(user, date):
     sql = "SELECT item, quantity FROM items WHERE user_id=%s AND date=%s"
-    val = (user, date)
+    
 
     cursor.execute(sql, val)
 
@@ -42,7 +45,9 @@ def editItem(user, item, quantity, date):
 
     return cursor.fetchall()
 
-
+# default user = 1
+# item = String of item name
+# returns an integer
 def getTotalItems(user, item):
     sql = "SELECT quantity FROM items WHERE user_id=%s AND item=%s"
     val = (user, item)
@@ -58,13 +63,15 @@ def getTotalItems(user, item):
     return sum
 
 def viewTable(table):
-  cursor.execute("SELECT * FROM items")
+    cursor.execute("SELECT * FROM items")
 
-  result = cursor.fetchall()
+    result = cursor.fetchall()
 
-  for x in result:
-    print(x)
-  return
+    for x in result:
+      print(x)
+    return
+
+
 
 #cursor.execute("CREATE TABLE accounts (id INT AUTO_INCREMENT PRIMARY KEY, username VARCHAR(255), email VARCHAR(255), password VARCHAR(255))")
 #cursor.execute("CREATE TABLE items (id INT AUTO_INCREMENT PRIMARY KEY, item VARCHAR(255), quantity INT, date DATE, user_id INT, FOREIGN KEY (user_id) REFERENCES accounts(id));")
