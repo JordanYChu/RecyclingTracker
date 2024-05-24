@@ -71,6 +71,8 @@ def viewTable(table):
       print(x)
     return
 
+
+
 #cursor.execute("CREATE TABLE accounts (id INT AUTO_INCREMENT PRIMARY KEY, username VARCHAR(255), email VARCHAR(255), password VARCHAR(255))")
 #cursor.execute("CREATE TABLE items (id INT AUTO_INCREMENT PRIMARY KEY, item VARCHAR(255), quantity INT, date DATE, user_id INT, FOREIGN KEY (user_id) REFERENCES accounts(id));")
 #cursor.execute("CREATE TABLE goals (id INT AUTO_INCREMENT PRIMARY KEY, item VARCHAR(255), quantity INT, date DATE, user_id INT, FOREIGN KEY (user_id) REFERENCES accounts(id));")
