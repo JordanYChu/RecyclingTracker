@@ -1,4 +1,5 @@
 from flask import Flask, render_template, jsonify, request
+import json
 
 app = Flask(__name__,template_folder='templates', static_folder='static')
 
@@ -12,9 +13,10 @@ def goals():
 def history():
     return render_template('history.html')
 
+
 @app.route('/data')
 def data():
-    return jsonify({'soft-plastic': 23, "hard-plastic": 65})
+    return  jsonify({'soft-plastic': 23, "hard-plastic": 65})
 
 
 #temp variables for testing (soon to be database variables)
@@ -24,6 +26,26 @@ def retrieve():
     #
     return jsonify({'title': 1, "body": 3})
 
+"""Get the total quantity of an item from everyday """
 @app.route('/total-item-data', methods=['GET'])
 def retrieve():
-    return 123
+    data = json.loads(request.data)
+    user = data['user']
+    item = data['item']
+    userId = getUserId(user)
+    if userId == -1:
+        return jsonify({'error', 'noUser'})
+    return totalItemsJSON(userID, item)
+
+
+@app.route('/all-item-values', methods=['GET'])
+def retrieve():
+    data = json.loads(request.data)
+    user = data['user']
+    date = data['date']
+    userId = getUserId(user)
+    if userId == -1:
+        return jsonify({'error', 'noUser'})
+    return returnAllItemValues(userId, date)
+
+
