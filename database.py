@@ -70,6 +70,42 @@ def addItem(item, quantity, date, user):
     return
 
 """
+Add a new goal entry to the database
+
+item - a string containing the name of the item
+quantity - an integer of how much of the item
+user - integer of user ID (Use getUserId)
+
+no returns
+"""
+def addGoal(item, quantity, user):
+    sql = "INSERT INTO goals (item, quantity, user_id) VALUES (%s, %s, %s)"
+    val = (item, quantity, user)
+
+    cursor.execute(sql, val)
+
+    return
+
+"""
+Edit a currently existing goal in the database
+
+user - integer of user ID (Use getUserId)
+item - a string containing the name of the item
+quantity - an integer of how much of the item
+
+no returns
+"""
+def editGoals(user, item, quantity):
+    sql = "UPDATE goals SET quantity=%s WHERE user_id=%s AND item=%s"
+    val = (quantity, user, item)
+
+    cursor.execute(sql, val)
+
+    db.commit()
+
+    return
+
+"""
 Get a 2D list of items and their quantity based on a date
 
 user - integer of user ID (Use getUserId)
@@ -106,6 +142,8 @@ def editItem(user, item, quantity, date):
     val = (quantity, user, item, date)
 
     cursor.execute(sql, val)
+
+    db.commit()
 
     return
 
