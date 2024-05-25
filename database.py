@@ -1,8 +1,16 @@
 import mysql.connector
+import json
 
-pwd = "temp"
-hst = "temp"
+with open("../authdat.txt", 'r') as file:
+    info = json.loads(file.read())
 
+pwd = info["pwd"]
+hst = info["hst"]
+print(type(pwd))
+print(type(hst))
+
+print(pwd)
+print(hst)
 db = mysql.connector.connect(
   host=hst,
   user="admin",
@@ -168,3 +176,5 @@ def getTotalItems(user, item):
       sum += item[0]
 
     return sum
+
+# print(getTotalItems(1, "glass"))
