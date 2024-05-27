@@ -34,7 +34,9 @@ def getUserId(username):
     sql = "SELECT id FROM accounts WHERE username=?"
     val = (username,)
 
-    data = cursor.execute(sql, val)
+    with sqlite3.connect("data/main.db") as conn:
+        data = list(conn.execute(sql, val))
+    conn.close()
 
     if (len(data) < 1):
         return -1
@@ -115,7 +117,9 @@ def getGoals(user):
     sql = "SELECT item, quantity FROM goals WHERE user_id=?"
     val = (user,)
 
-    data = cursor.execute(sql, val)
+    with sqlite3.connect("data/main.db") as conn:
+        data = list(conn.execute(sql, val))
+    conn.close()
 
     return data
 
@@ -137,7 +141,9 @@ def getItems(user, date):
     sql = "SELECT item, quantity FROM items WHERE user_id=? AND date=?"
     val = (user, date)
 
-    data = cursor.execute(sql, val)
+    with sqlite3.connect("data/main.db") as conn:
+        data = list(conn.execute(sql, val))
+    conn.close()
 
     return data
 
@@ -173,7 +179,9 @@ def getTotalItems(user, item):
     sql = "SELECT quantity FROM items WHERE user_id=? AND item=?"
     val = (user, item)
 
-    data = cursor.execute(sql, val)
+    with sqlite3.connect("data/main.db") as conn:
+        data = list(conn.execute(sql, val))
+    conn.close()
 
     sum = 0
     for item in data:
