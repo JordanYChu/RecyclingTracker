@@ -1,6 +1,8 @@
 
 console.log("testing information requests")
 
+
+
 //Change soft-plastic count
 const getItems = async () => {
     let rawData = await fetch("http://127.0.0.1:5000/data");
