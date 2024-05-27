@@ -1,25 +1,6 @@
-import mysql.connector
-import json
+import sqlite3
 
-with open("../authdat.txt", 'r') as file:
-    info = json.loads(file.read())
-
-pwd = info["pwd"]
-hst = info["hst"]
-print(type(pwd))
-print(type(hst))
-
-print(pwd)
-print(hst)
-db = mysql.connector.connect(
-  host=hst,
-  user="admin",
-  password=pwd,
-  port="3306",
-  database="main"
-)
-
-cursor = db.cursor()
+cursor = sqlite3.connect("data/main.db")
 
 """
 Add a new user to a database
@@ -31,10 +12,12 @@ password - login password (encryption later!)
 no returns
 """
 def addUser(username, email, password):
-    sql = "INSERT INTO accounts (username, email, password) VALUES (%s, %s, %s)"
+    sql = "INSERT INTO accounts (username, email, password) VALUES (?, ?, ?)"
     val = (username, email, password)
 
     cursor.execute(sql, val)
+
+    cursor.commit()
 
     return
 
@@ -48,12 +31,10 @@ integer (if username exists)
 -1      (if username does not exist)
 """
 def getUserId(username):
-    sql = "SELECT id FROM accounts WHERE username=%s"
+    sql = "SELECT id FROM accounts WHERE username=?"
     val = (username,)
 
-    cursor.execute(sql, val)
-
-    data = cursor.fetchall()
+    data = cursor.execute(sql, val)
 
     if (len(data) < 1):
         return -1
@@ -70,10 +51,12 @@ user - integer of user ID (Use getUserId)
 no returns
 """
 def addItem(item, quantity, date, user):
-    sql = "INSERT INTO items (item, quantity, date, user_id) VALUES (%s, %s, %s, %s)"
+    sql = "INSERT INTO items (item, quantity, date, user_id) VALUES (?, ?, ?, ?)"
     val = (item, quantity, date, user)
 
     cursor.execute(sql, val)
+
+    cursor.commit()
 
     return
 
@@ -87,10 +70,12 @@ user - integer of user ID (Use getUserId)
 no returns
 """
 def addGoal(item, quantity, user):
-    sql = "INSERT INTO goals (item, quantity, user_id) VALUES (%s, %s, %s)"
+    sql = "INSERT INTO goals (item, quantity, user_id) VALUES (?, ?, ?)"
     val = (item, quantity, user)
 
     cursor.execute(sql, val)
+
+    cursor.commit()
 
     return
 
@@ -104,7 +89,7 @@ quantity - an integer of how much of the item
 no returns
 """
 def editGoals(user, item, quantity):
-    sql = "UPDATE goals SET quantity=%s WHERE user_id=%s AND item=%s"
+    sql = "UPDATE goals SET quantity=? WHERE user_id=? AND item=?"
     val = (quantity, user, item)
 
     cursor.execute(sql, val)
@@ -128,12 +113,12 @@ Ex.
 )
 """
 def getItems(user, date):
-    sql = "SELECT item, quantity FROM items WHERE user_id=%s AND date=%s"
+    sql = "SELECT item, quantity FROM items WHERE user_id=? AND date=?"
     val = (user, date)
 
-    cursor.execute(sql, val)
+    data = cursor.execute(sql, val)
 
-    return cursor.fetchall()
+    return data
 
 """
 Edit a currently existing item in the database
@@ -146,7 +131,7 @@ date - the date that the item is added
 no returns
 """
 def editItem(user, item, quantity, date):
-    sql = "UPDATE items SET quantity=%s WHERE user_id=%s AND item=%s AND date=%s"
+    sql = "UPDATE items SET quantity=? WHERE user_id=? AND item=? AND date=?"
     val = (quantity, user, item, date)
 
     cursor.execute(sql, val)
@@ -164,12 +149,10 @@ item - a string containing the name of the item
 returns the quantity (integer)
 """
 def getTotalItems(user, item):
-    sql = "SELECT quantity FROM items WHERE user_id=%s AND item=%s"
+    sql = "SELECT quantity FROM items WHERE user_id=? AND item=?"
     val = (user, item)
 
-    cursor.execute(sql, val)
-
-    data = cursor.fetchall()
+    data = cursor.execute(sql, val)
 
     sum = 0
     for item in data:
@@ -177,4 +160,5 @@ def getTotalItems(user, item):
 
     return sum
 
-# print(getTotalItems(1, "glass"))
+print("Succesfully connected to DB")
+cursor.close()
