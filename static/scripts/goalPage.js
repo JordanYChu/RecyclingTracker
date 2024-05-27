@@ -1,13 +1,43 @@
 console.log("Running Test.js");
-const categories = [4,1,10,1,10,1,1,1]
-let total = 0
-for(let i = 0; i < 8; i++) {
-    total += categories[i];
+// const categories = [4,1,10,1,10,1,1,1]
+// let total = 0
+// for(let i = 0; i < 8; i++) {
+//     total += categories[i];
+// }
+// console.log(total)
+
+
+
+ITEM_IDS = ["soft-plastic", "hard-plastic", "glass", "paper", "cardboard", "metal", "electronics", "styrofoam"];
+
+const totalQuantityItem = async (item) => {
+    const post_info = {
+        "userId": 1,
+        "item": item
+    };
+    const options = {
+        method: 'POST',
+        headers: {
+        'Content-Type': 'application/json',
+    },
+        body: JSON.stringify(post_info)
+    };
+    let rawData = await fetch('http://127.0.0.1:5000/total-item-data', options)
+    let jsons = await rawData.json()
+    return jsons;
+
+
 }
-console.log(total)
+async function updateTotalMeter() {
+    var categories = [0,0,0,0,0,0,0,0]
+    var total =0;
+    for(var i = 0;i < 8; i++) {
+        let b =  await totalQuantityItem(ITEM_IDS[i])
+        categories[i] = b["total"]
+        console.log("cat:", categories[i])
+        total+=categories[i]
+    }
 
-
-function updateTotalMeter(categories, total) {
     console.log("Inside Ratio")
     const meter = document.getElementById("global-meter");
     //calculate percentages
@@ -28,7 +58,7 @@ function updateTotalMeter(categories, total) {
     cssText += "--styrofoam: " + percentages[7]*100 + "%;";
     meter.setAttribute("style",  cssText)
 }
-updateTotalMeter(categories,total)
+updateTotalMeter()
 
 function updateItemGoal() {
 

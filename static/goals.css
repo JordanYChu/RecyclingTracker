@@ -93,8 +93,12 @@ li.item-stat {
     box-shadow:  20px 20px 50px #121511,
              -20px -20px 30px #1a1f19;
 }
+
+.circle-progress {
+    --total: "100";
+}
 .circle-progress::before {
-    content: "100/1000";
+    content: var(--total);
     position: absolute;
     height: 300px;
     width: 300px;
