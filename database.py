@@ -94,9 +94,30 @@ def editGoals(user, item, quantity):
 
     cursor.execute(sql, val)
 
-    db.commit()
+    cursor.commit()
 
     return
+
+"""
+Get a 2D list of goals and their quantity
+
+user - integer of user ID (Use getUserId)
+
+returns a list of tuples ( name , quantity )
+Ex. 
+(
+    ('glass', 9)
+    ('metal', 8)
+    ('cardboard', 4)
+)
+"""
+def getGoals(user):
+    sql = "SELECT item, quantity FROM goals WHERE user_id=?"
+    val = (user,)
+
+    data = cursor.execute(sql, val)
+
+    return data
 
 """
 Get a 2D list of items and their quantity based on a date
@@ -115,9 +136,8 @@ Ex.
 def getItems(user, date):
     sql = "SELECT item, quantity FROM items WHERE user_id=? AND date=?"
     val = (user, date)
-    with sqlite3.connect("data/main.db") as conn:
-        data = list(conn.execute(sql, val))
-    conn.close()
+
+    data = cursor.execute(sql, val)
 
     return data
 
@@ -137,7 +157,7 @@ def editItem(user, item, quantity, date):
 
     cursor.execute(sql, val)
 
-    db.commit()
+    cursor.commit()
 
     return
 
@@ -153,9 +173,7 @@ def getTotalItems(user, item):
     sql = "SELECT quantity FROM items WHERE user_id=? AND item=?"
     val = (user, item)
 
-    with sqlite3.connect("data/main.db") as conn:
-        data = list(conn.execute(sql, val))
-    conn.close()
+    data = cursor.execute(sql, val)
 
     sum = 0
     for item in data:
