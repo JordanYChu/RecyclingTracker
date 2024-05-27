@@ -115,8 +115,9 @@ Ex.
 def getItems(user, date):
     sql = "SELECT item, quantity FROM items WHERE user_id=? AND date=?"
     val = (user, date)
-
-    data = cursor.execute(sql, val)
+    with sqlite3.connect("data/main.db") as conn:
+        data = list(conn.execute(sql, val))
+    conn.close()
 
     return data
 
@@ -152,7 +153,9 @@ def getTotalItems(user, item):
     sql = "SELECT quantity FROM items WHERE user_id=? AND item=?"
     val = (user, item)
 
-    data = cursor.execute(sql, val)
+    with sqlite3.connect("data/main.db") as conn:
+        data = list(conn.execute(sql, val))
+    conn.close()
 
     sum = 0
     for item in data:
