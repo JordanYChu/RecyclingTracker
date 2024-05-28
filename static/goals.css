@@ -1,5 +1,15 @@
 @import url("colors.css");
 
+/*
+stats-container
+    dailytotalstats
+    stats
+
+
+*/
+
+
+
 .secondary {
     height: 100%;
     background-image: url(../static/icons/trees.png);
@@ -21,27 +31,28 @@
 }
 #date-label {
     margin: 0;
-    font-size: 75px;    
+    font-size: 65px;    
     text-align: center;
+    white-space: nowrap;
     line-height: 125px;
-}
-#left-arrow {
-
 }
 #left-arrow {
 
 }
 
 .stats-container {
-    display: flex;
-    flex-flow: row;
+    /* display: flex;
+    flex-flow: row; */
     height: 100%;
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-columns: 4fr 6fr;
 }
 
 .stats {
-    width: 60%;
+    /* width: 60%; */
 }.day-total-stats {
-    width: 40%
+    /* width: 40% */
 }
 ul {
     margin-left: 0px;
@@ -116,10 +127,9 @@ li.item-stat {
     }
 }
 
-
 .circle-progress::before {
     content: var(--goal_tracker);
-    position: absolute;
+    position: relative;
     height: 300px;
     width: 300px;
     border-radius: 50%;
@@ -130,3 +140,15 @@ li.item-stat {
     border: solid var(--topbar) 10px;
 }
 
+@media (max-width: 1100px) {
+    .stats-container {
+        /* display: grid; */
+        /* grid-auto-flow: column; */
+        /* justify-content: space-between; */
+        grid-template-columns: 1fr;
+        grid-template-rows: auto auto;
+    }
+    html, body {
+    overflow: auto !important; /* This allows scrolling */
+    }
+}
