@@ -67,10 +67,12 @@ figure > div {
 
 
 .counter {
+    transition: 300ms ease-out;
     font-size: 20px;
     width: 70px;
+    height: 25px;
+    line-height: 27px;
     text-align: center;
-    background: red;
     border-radius: 20px;
     background: var(--background2);
     border: #121511 4px solid;
@@ -171,6 +173,7 @@ figure > div {
 }
 
 #more-info {
+    transition: ease-in-out 0.1s;
     position: absolute;
     right: 0;
     top: 50%;
@@ -233,8 +236,24 @@ progress {
 }
 
 .plus, .minus{
+    transition: ease-in-out 0.1s;
     width: 32px;
     height: 32px;
     border-radius: 100%;
     background: #121511;
+}
+
+#more-info:hover, .plus:hover, .minus:hover {
+    box-shadow: 0px 0px 10px white;
+}
+
+#more-info:active, .plus:active, .minus:active {
+    background-color: red;
+}
+
+.counter:has(+ .plus:active) {
+    background-color: red;
+}
+.minus:active~ .counter {
+    background-color: red;
 }

@@ -59,7 +59,7 @@ async function updateTotalMeter() {
     //calculate percentages
     let percentages = [0,0,0,0,0,0,0,0,0]
     percentages[0] = categories[0]/total
-    for(let i = 1; i < 8; i++) {
+    for(let i = 1; i < 9; i++) {
         percentages[i] = percentages[i-1] + categories[i]/total
     }
 

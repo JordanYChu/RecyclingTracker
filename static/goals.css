@@ -79,25 +79,43 @@ li.item-stat {
     padding: 0;
     width: 100%;
 }
+@property --angle {
+    syntax: "<angle>";
+    inherits: false;
+    initial-value: 0deg;
+}
 
 .circle-progress {
     --total: 0;
-    --goal_daily: 400;
+    --goal_daily: 0;
     --goal_tracker: "";
+    --test: 0deg;
 }
 .circle-progress {
+    animation: 1s ease-in-out 1 conicMove;
+    animation-fill-mode: forwards;  
     margin: auto;
     margin-top: 50px;
     width: 400px;
     height: 400px;
     border-radius: 50%;
-    background: conic-gradient(#463420 calc((var(--total)/var(--goal_daily)) * 100%), white 0%);
+    /* background: conic-gradient(#463420 calc((var(--total)/var(--goal_daily)) * 100%), white 0%); */
+    background: conic-gradient(#463420 var(--angle), white 0%);
     display: flex;
     justify-content: center;
     align-items: center;
     box-shadow:  20px 20px 50px #121511,
              -20px -20px 30px #1a1f19;
 }
+@keyframes conicMove {
+    0% {
+        --angle: -1deg;
+    }
+    100% {
+        --angle: var(--test);
+    }
+}
+
 
 .circle-progress::before {
     content: var(--goal_tracker);

@@ -73,7 +73,8 @@ const loadItems = async() => {
     var goal = json["daily_goal"]
     goal_el.setAttribute("style", "--total: " + total + ";" + 
                                 "--goal_daily: " + goal + ";" +
-                                "--goal_tracker: \"" +total+"/"+goal +"\";" 
+                                "--goal_tracker: \"" +total+"/"+goal +"\";" +
+                                "--test: " + (360*total/goal) + "deg;"
                             )
 }
 
