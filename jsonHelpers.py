@@ -3,7 +3,7 @@ import json
 from database import *
 import server
 
-listOfCatagories = ["soft-plastic", "hard-plastic", "glass", "paper", "cardboard", "metal", "electronics", "styrofoam"]
+listOfCatagories = ["soft-plastic", "hard-plastic", "glass", "paper", "cardboard", "metal", "electronics", "textiles", "styrofoam"]
 
 def totalItemsJSON(user, item):
     return jsonify({'total': getTotalItems(user, item)})
@@ -14,6 +14,7 @@ def returnAllItemValues(user, date):
     itemDict = {}
     for item in itemList:
         itemDict[item[0]] = item[1]
+    print(itemDict)
     return jsonify(itemDict)
 
 

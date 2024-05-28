@@ -34,6 +34,22 @@ const getItemsFromDate= async (date) => {
     return jsonData;
 }
 
+const getGoalFromDate = async (date) => {
+    const post_info = {
+        "userId": 1,
+        "date": date
+    };
+    const options = {
+        method: 'POST',
+        headers: {
+        'Content-Type': 'application/json',
+    },
+        body: JSON.stringify(post_info)
+    };
+    let rawData = await fetch('http://127.0.0.1:5000/daily-goal-values', options)
+    return await rawData.json()
+}
+
 const loadItems = async() => {
     console.log("loading items..")
     let jsonData = await getItemsFromDate("2024-05-15");
@@ -52,7 +68,14 @@ const loadItems = async() => {
             total += count;
         }
     }
-    goal_el.setAttribute("style", "--total: \"" + total + "\";")
+    //get goal
+    var json = await getGoalFromDate("")
+    var goal = json["daily_goal"]
+    goal_el.setAttribute("style", "--total: " + total + ";" + 
+                                "--goal_daily: " + goal + ";" +
+                                "--goal_tracker: \"" +total+"/"+goal +"\";" +
+                                "--test: " + (360*total/goal) + "deg;"
+                            )
 }
 
 loadItems()

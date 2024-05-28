@@ -1,21 +1,44 @@
 //load User Data
 ITEM_IDS = ["soft-plastic", "hard-plastic", "glass", "paper", "cardboard", "metal", "electronics", "textiles", "styrofoam"];
 
+const getGoalFromDate = async (date) => {
+    const post_info = {
+        "userId": 1,
+        "date": date
+    };
+    const options = {
+        method: 'POST',
+        headers: {
+        'Content-Type': 'application/json',
+    },
+        body: JSON.stringify(post_info)
+    };
+    let rawData = await fetch('http://127.0.0.1:5000/daily-goal-values', options)
+    return await rawData.json()
+}
 const preloadData = async () => {
+    var total = 0;
     let items = await getItems();
-    for(var i = 0; i < 8; i++) {
+    for(var i = 0; i < 9; i++) {
         let counter_label = document.getElementById(ITEM_IDS[i]).getElementsByClassName("counter")[0];
         if(items[ITEM_IDS[i]] == null) {
             counter_label.innerHTML = 0
         }
         else {
             counter_label.innerHTML = items[ITEM_IDS[i]];
+            total += items[ITEM_IDS[i]]
         }
     }
-
+    var json = await getGoalFromDate("")
+    var goal = json["daily_goal"]
+    // goal_el.setAttribute("style", "--total: " + total + ";" + 
+    //                             "--goal_daily: " + goal + ";" +
+    //                             "--goal_tracker: \"" +total+"/"+goal +"\";" 
+    //                         )
+    const d = document.getElementById("total-goal-meter")
+    d.setAttribute("value", total)
+    d.setAttribute("max", goal)
 }
-preloadData()
-
 
 const getData = async (item_id) => {
     let item_count = await getItemCount(item_id);
@@ -23,6 +46,7 @@ const getData = async (item_id) => {
     counter_label.innerHTML = item_count;
 }
 
+preloadData()
 
     
 
