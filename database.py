@@ -157,14 +157,15 @@ date - the date that the item is added
 
 no returns
 """
+
 def editItem(user, item, quantity, date):
     sql = "UPDATE items SET quantity=? WHERE user_id=? AND item=? AND date=?"
     val = (quantity, user, item, date)
 
-    cursor.execute(sql, val)
-
-    cursor.commit()
-
+    with sqlite3.connect("data/main.db") as conn:
+        conn.execute(sql, val)
+        conn.commit
+    conn.close()
     return
 
 """

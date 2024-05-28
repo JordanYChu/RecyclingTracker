@@ -16,6 +16,7 @@
     --paper: 0%;
     --cardboard: 0%;
     --metal: 0%;
+    --electronics: 0%;
     --textiles: 0%;
     --styrofoam: 0%;
 }
@@ -34,9 +35,11 @@
                                     var(--midnight-green) var(--cardboard),
                                     var(--midnight-green) var(--metal),
                                     var(--oxford-blue) var(--metal),
-                                    var(--oxford-blue) var(--textiles),
+                                    var(--oxford-blue) var(--electronics),
+                                    var(--oxford-blue-2) var(--electronics),
                                     var(--oxford-blue-2) var(--textiles),
-                                    var(--oxford-blue-2) 100%);
+                                    black var(--textiles),
+                                    black 100%);
 }
 
 .total {
@@ -51,13 +54,12 @@
 .item-totals{
   outline: 0px solid #c00;
   float: left;
-  width: calc(100% / 8);
+  width: calc(100% / 9);
   text-align: left;
   text-indent: 10px ;
 }
 
 .item-totals::before {
-  
   content: '';
   width: 100%;
   height: 15px;
@@ -70,21 +72,23 @@
   
   background-image: linear-gradient( 90deg, 
                                     var(--pistachio) 0%,
-                                    var(--pistachio) 12.5%,
-                                    var(--pistachio-3) 12.5%,
-                                    var(--pistachio-3) 25%,
-                                    var(--pigment-green) 25%,
-                                    var(--pigment-green) 37.5%,
-                                    var(--viridian) 37.5%,
-                                    var(--viridian) 50%,
-                                    var(--caribbean-current) 50%,
-                                    var(--caribbean-current) 62.5%,
-                                    var(--midnight-green) 62.5%,
-                                    var(--midnight-green) 75%,
-                                    var(--oxford-blue) 75%,
-                                    var(--oxford-blue) 87.5%,
-                                    var(--oxford-blue-2) 87.5%,
-                                    var(--oxford-blue-2) 100%);
+                                    var(--pistachio) 11.1%,
+                                    var(--pistachio-3) 11.1%,
+                                    var(--pistachio-3) 22.2%,
+                                    var(--pigment-green) 22.2%,
+                                    var(--pigment-green) 33.3%,
+                                    var(--viridian) 33.3%,
+                                    var(--viridian) 44.4%,
+                                    var(--caribbean-current) 44.4%,
+                                    var(--caribbean-current) 55.5%,
+                                    var(--midnight-green) 55.5%,
+                                    var(--midnight-green) 66.6%,
+                                    var(--oxford-blue) 66.6%,
+                                    var(--oxford-blue) 77.7%,
+                                    var(--oxford-blue-2) 77.7%,
+                                    var(--oxford-blue-2) 88.8%,
+                                    black 88.8%,
+                                    black 100%);
 }
 .achievement-list {
     overflow-y: scroll;

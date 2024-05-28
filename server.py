@@ -18,14 +18,15 @@ def history():
 @app.route('/data')
 def data():
     # return  jsonify({'soft-plastic': 23, "hard-plastic": 65})
-    return returnAllItemValues(1, "2024-05-17")
+    return returnAllItemValues(1, "2024-05-15")
 
 
 @app.route('/retrieve-data', methods=['POST','GET'])
 def retrieve():
     json = request.json
-    #
-    return jsonify({'title': 1, "body": 3})
+    editItem(1, json["item"], json["count"], "2024-05-15")
+    print(json["count"])
+    return jsonify({'total': json["count"]})
 
 """Get the total quantity of an item from everyday """
 @app.route('/total-item-data', methods=['POST','GET'])
@@ -36,8 +37,8 @@ def retrieve_quantity_of_item():
     # userId = getUserId(user)
     # if userId == -1:
     #     return jsonify({'error', 'noUser'})
-    return jsonify({'total':4})
-    # return totalItemsJSON(1, "cardboard")
+    # return jsonify({'total':4})
+    return totalItemsJSON(1, item)
 
 
 @app.route('/all-item-values', methods=['POST','GET'])
@@ -51,4 +52,13 @@ def retrieve_item_values():
     #     return jsonify({'error', 'noUser'})
     return returnAllItemValues(userId, date)
 
+@app.route('/all-goal-values', methods=['POST','GET'])
+def retrieve_goals():
+    json = request.json
+    userId = json['userId']
+    goalList = getGoals(userId)
+    goalDict = {}
+    for goal in goalList:
+        goalDict[goal[0]] = goal[1]
+    return jsonify(goalDict)
 

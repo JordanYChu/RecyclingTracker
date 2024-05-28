@@ -6,11 +6,8 @@ import server
 listOfCatagories = ["soft-plastic", "hard-plastic", "glass", "paper", "cardboard", "metal", "electronics", "styrofoam"]
 
 def totalItemsJSON(user, item):
-    return jsonify({'total', getTotalItems(user, item)})
+    return jsonify({'total': getTotalItems(user, item)})
 
-
-    # empty for now
-    return 0
 def returnAllItemValues(user, date):
     #empty for new
     itemList = getItems(user,date)
@@ -18,6 +15,7 @@ def returnAllItemValues(user, date):
     for item in itemList:
         itemDict[item[0]] = item[1]
     return jsonify(itemDict)
+
 
 
 

@@ -233,7 +233,7 @@ progress {
     background-color: white;
 }
 
-.plus, #minus{
+.plus, .minus{
     width: 32px;
     height: 32px;
     border-radius: 100%;

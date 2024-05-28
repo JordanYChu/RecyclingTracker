@@ -1,4 +1,4 @@
-ITEM_IDS = ["soft-plastic", "hard-plastic", "glass", "paper", "cardboard", "metal", "electronics", "styrofoam"];
+ITEM_IDS = ["soft-plastic", "hard-plastic", "glass", "paper", "cardboard", "metal", "electronics", "textiles", "styrofoam"];
 //GET request for data for specific day
 
 const getItemsFromDate= async (date) => {
@@ -36,7 +36,7 @@ const getItemsFromDate= async (date) => {
 
 const loadItems = async() => {
     console.log("loading items..")
-    let jsonData = await getItemsFromDate("2024-05-17");
+    let jsonData = await getItemsFromDate("2024-05-15");
     console.log(jsonData["cardboard"])
     // const day_goal = jsonData[insert_key_here]
     const goal_el = document.getElementsByClassName("circle-progress")[0]
