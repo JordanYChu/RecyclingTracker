@@ -115,8 +115,10 @@ meter {
     -12px -12px 28px #2c312b;
 }
 .meter-info {
-    display: flex;
-    justify-content: space-between;
+    display: grid;
+    grid-auto-flow: column;
+    /* justify-content: space-between; */
+    grid-template-columns: 1fr auto 1fr;
 }
 
 .meter-info > label,button {
@@ -129,7 +131,9 @@ meter {
 }
 
 #item-name {
-    width: 150px;
+    height: min-content;
+    width: auto;
+    justify-self: left;
 }
 
 /* Each Meter Color*/
@@ -161,4 +165,33 @@ meter {
 
 #styrofoam  meter::-webkit-meter-optimum-value {
     background-color: var(--oxford-blue-2);
+}
+
+.goal-set {
+    justify-self: right;
+    height: min-content;
+    white-space: nowrap;
+}
+
+#item-total {
+    justify-self:center !important;
+    height: min-content;
+
+}
+
+@media (max-width: 620px) {
+    .meter-info {
+        /* display: grid; */
+        /* grid-auto-flow: column; */
+        /* justify-content: space-between; */
+        grid-template-columns: 1fr;
+        grid-template-rows: auto auto auto;
+    }
+    #item-total, .goal-set, #item-name {
+        justify-self: center;
+        margin: 8px;
+    }
+    meter {
+        height: 80px;
+    }
 }
