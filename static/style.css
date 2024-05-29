@@ -14,6 +14,8 @@ html, body {
 }
 
 .login-box {
+  position: relative;
+  z-index: 1;
   background-color: var(--background2);
   padding: 10px;
   border-radius: 5px;
@@ -29,6 +31,7 @@ html, body {
   border: #121511 solid 3px;
   background-color: var(--text-darker);
   margin-bottom: 10px;
+  text-align: center;
 }
 
 .login-box label {
@@ -37,6 +40,30 @@ html, body {
   color: var(--text);
 }
 
+.login-open {
+    animation: 750ms ease-in-out 1 openLogin;
+}
+.login-closed {
+    animation: 750ms ease-in-out 1 closeLogin;
+    animation-fill-mode: forwards;
+}
+
+@keyframes openLogin {
+    0% {
+        transform: translateY(-150px);
+    }
+    100% {
+        transform: translateY(0px);
+    }
+}
+@keyframes closeLogin{
+    0% {
+        transform: translateY(0px);
+    }
+    100% {
+        transform: translateY(-150px);
+    }
+}
 .login {
   flex: 2;
   margin-right: 5px;
@@ -50,6 +77,7 @@ html, body {
   justify-content: space-between;
 }
 .username-button {
+    font-size: 15px;
     line-height: 15px;
     color: var(--text);
     text-align: center;
@@ -91,12 +119,13 @@ html, body {
   height: 35px;
   display: inline;
 }
-#user {
+#user {background-color: var(--background);
+  position: relative;
+  z-index: 2;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-bottom: 40px;
 }
 
 #user svg{
@@ -170,4 +199,9 @@ h3 {
     transform: translateX(0);
     opacity: 100%;
   }
+}
+::-webkit-input-placeholder { 
+    font-weight: 400;
+    color:black ;
+    opacity: 1 !important;
 }

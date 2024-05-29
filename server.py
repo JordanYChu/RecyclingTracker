@@ -31,12 +31,11 @@ def retrieve():
 @app.route('/total-item-data', methods=['POST','GET'])
 def retrieve_quantity_of_item():
     json = request.json
-    userId = json['userId']
+    username = json['username']
     item = json['item']
-    # userId = getUserId(user)
-    # if userId == -1:
-    #     return jsonify({'error', 'noUser'})
-    # return jsonify({'total':4})
+    userId = getUserId(username)[0]
+    if userId == -1:
+        return jsonify({'error', 'noUser'})
     return totalItemsJSON(1, item)
 
 
@@ -54,7 +53,10 @@ def retrieve_item_values():
 @app.route('/all-goal-values', methods=['POST','GET'])
 def retrieve_goals():
     json = request.json
-    userId = json['userId']
+    username = json['username']
+    userId = getUserId(username)[0]
+    if userId == -1:
+        return jsonify({'error', 'noUser'})
     goalList = getGoals(userId)
     goalDict = {}
     for goal in goalList:
@@ -78,4 +80,15 @@ def input_daily_goal():
     print(goal)
     editDG(1, goal, "2024-05-15")
     return jsonify({"daily_goal": getDGs(1, "2024-05-15")})
+    # return jsonify({"daily_goal": 923})
+
+@app.route('/login', methods=['POST','GET'])
+def login_request():
+    json = request.json
+    username = json["username"]
+    print(username)
+    if(getUserId(username) == -1):
+        print("user does not exist")
+        return jsonify({"login": "fail"})
+    return jsonify({"login": "success"})
     # return jsonify({"daily_goal": 923})

@@ -110,11 +110,8 @@ li.item-stat:hover {
     --test: 0deg;
 }
 .circle-progress {
-    animation: 1s ease-in-out 1 conicMove;
-    animation-fill-mode: forwards;  
     margin: auto;
     margin-top: 50px;
-    margin-bottom: 40px;
     width: 400px;
     height: 400px;
     border-radius: 50%;
@@ -125,6 +122,9 @@ li.item-stat:hover {
     align-items: center;
     box-shadow:  20px 20px 50px #121511,
              -20px -20px 30px #1a1f19;
+}
+.load-item-from-login {
+    animation: 1s ease-in-out 1 conicMove forwards;
 }
 @keyframes conicMove {
     0% {

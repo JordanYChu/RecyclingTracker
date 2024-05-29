@@ -6,13 +6,13 @@ console.log("Running Test.js");
 // }
 // console.log(total)
 
-
+let USERNAME;
 
 ITEM_IDS = ["soft-plastic", "hard-plastic", "glass", "paper", "cardboard", "metal", "electronics", "textiles", "styrofoam"];
 
 const updateGoalValues = async () => {
     const post_info = {
-        "userId": 1,
+        "username": USERNAME
     };
     const options = {
         method: 'POST',
@@ -29,7 +29,7 @@ const updateGoalValues = async () => {
 
 const totalQuantityItem = async (item) => {
     const post_info = {
-        "userId": 1,
+        "username": USERNAME,
         "item": item
     };
     const options = {
@@ -86,15 +86,48 @@ async function updateTotalMeter() {
     cssText += "--styrofoam: " + percentages[8]*100 + "%;";
     meter.setAttribute("style",  cssText)
 }
-updateGoalValues()
-updateTotalMeter()
-
-function updateItemGoal() {
-
+//craete new user
+async function usernameQuery(username) {
+    const post_info = {
+        "username": username
+    };
+    const options = {
+        method: 'POST',
+        headers: {
+        'Content-Type': 'application/json',
+    },
+        body: JSON.stringify(post_info)
+    };
+    let rawData = await fetch('http://127.0.0.1:5000/login', options)
+    return await rawData.json()
 }
-function updateItemCount(item_id, count) {
-    const m = document.getElementById(item_id).getElementsByTagName("meter")[0];
-    m.value = count;
+
+function loadPageData() {
+    updateGoalValues()
+    updateTotalMeter()
+    loadAnimations()
 }
 
-updateItemCount("soft-plastic",20);
+const login_button = document.getElementById("login-button")
+login_button.addEventListener("click", async function() {
+    const usernameField = document.getElementById("username")
+    const username = usernameField.value
+    const jsonData = await usernameQuery(username);
+    if(jsonData['login'] == "success") {
+        USERNAME = username
+        loadPageData()
+    }
+})
+
+function loadAnimations() {
+    for(var i = 0; i < 9; i++) {
+        const progress_bar = document.getElementById(ITEM_IDS[i]).getElementsByClassName("progress")[0]
+        $(progress_bar).removeClass('progress_anim').show();
+        $(progress_bar).addClass('progress_anim').show();
+    }
+}
+
+if(localStorage.getItem("username")) {
+    USERNAME = localStorage.getItem("username")
+    loadPageData()
+}

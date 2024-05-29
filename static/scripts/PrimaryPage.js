@@ -39,7 +39,43 @@ info_store = {
 }
 
 load_side_info(document.getElementById("soft-plastic"))
+//login open and close logic
+function openCloseLogin() {
+    const user_box = document.getElementsByClassName("login-box")[0]
+    if($(user_box).hasClass('login-closed')) {
+        $(user_box).removeClass('login-closed').addClass('login-open').show();
+    }
+    else if($(user_box).hasClass('login-open')) {
+        $(user_box).removeClass('login-open').addClass("login-closed");
+    }
+}
 
+//craete new user
+async function usernameQuery(username) {
+    const post_info = {
+        "username": username
+    };
+    const options = {
+        method: 'POST',
+        headers: {
+        'Content-Type': 'application/json',
+    },
+        body: JSON.stringify(post_info)
+    };
+    let rawData = await fetch('http://127.0.0.1:5000/login', options)
+    return await rawData.json()
+}
+
+const login_button = document.getElementById("login-button")
+login_button.addEventListener("click", async function() {
+    const usernameField = document.getElementById("username")
+    const username = usernameField.value;
+    const jsonData = await usernameQuery(username);
+    if(jsonData['login'] == "success") {
+        localStorage.setItem('username', username)
+        loadData()
+    }
+})
 
 const getGoalFromDate = async (date) => {
     const post_info = {
@@ -56,7 +92,7 @@ const getGoalFromDate = async (date) => {
     let rawData = await fetch('http://127.0.0.1:5000/daily-goal-values', options)
     return await rawData.json()
 }
-const preloadData = async () => {
+const loadData = async () => {
     var total = 0;
     let items = await getItems();
     for(var i = 0; i < 9; i++) {
@@ -83,8 +119,6 @@ const getData = async (item_id) => {
     let counter_label = document.getElementById(item_id).getElementsByClassName("counter")[0];
     counter_label.innerHTML = item_count;
 }
-
-preloadData()
 
     
 
@@ -236,4 +270,9 @@ function openCloseTray(item_el) {
         $(tray).removeClass('selected').addClass("dismiss");
     }
     load_side_info(item_el)
+}
+
+//login to user
+if(localStorage.getItem("username") == "Jordan50") {
+    loadData()
 }

@@ -123,7 +123,7 @@ meter {
     grid-template-columns: 1fr auto 1fr;
 }
 
-.meter-info > label,button {
+.meter-info > label, .meter-info > button {
     font-size: 20px;
     color: white;
     background: #21251e;
@@ -151,6 +151,7 @@ meter {
 }
 
 .progress {
+    --goal-count: 0%;
     border-radius: 50px;
     background-color: blue;
     height: 100%;
@@ -158,9 +159,8 @@ meter {
 }
 
 /* aniamtino for .progress bar */
-.progress {
-    animation: 750ms ease-in-out 1 progressFill;
-    animation-fill-mode: forwards;
+.progress_anim {
+    animation: 750ms ease-in-out 1 progressFill forwards;
 }
 
 @keyframes progressFill {
