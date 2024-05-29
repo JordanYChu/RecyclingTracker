@@ -97,8 +97,13 @@ figure > div {
 }
 .item-info {
     box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content:space-between;
     background-color: var(--background);
-    width: 30%;
+    width: 20%;
+    min-width: 200px;
+    overflow-y: auto !important;
     height: 100%;
     box-shadow: -10px 0px 30px #121511;
     z-index: 0;
@@ -115,7 +120,9 @@ figure > div {
     height: calc(10% - 10px);
     display: flex;
     justify-content: center;
+    height: fit-content;
     align-items: center;
+    text-align: center;
 }
 .box-title > div {
     display: flex;
@@ -124,9 +131,14 @@ figure > div {
 
 .box-image {
     text-align: center;
-    height: calc(30% - 10px);
+    /* height: calc(30% - 10px); */
     padding: 20px;
     background: radial-gradient(#141813, var(--background2));
+}
+
+.tray-image {
+    width:50% !important;
+    height: auto;
 }
 
 .box-image img {
@@ -135,18 +147,26 @@ figure > div {
 }
 
 .box-description {
-    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    align-items: center;
     text-align: center;
-    height: calc(20% - 10px);
+    height: fit-content;
 }
 .box-description p {
+    /* font-size: 18px; */
     font-size: 18px;
 }
 
 .box-related-items {
-    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+    height: fit-content;
     text-align: center;
-    height: calc(40% - 10px);
+    /* height: calc(40% - 10px); */
 }
 
 .box-related-items ul {
@@ -158,10 +178,11 @@ figure > div {
 
 .item-heading {
     font-weight: 100;
-    font-size: 30px;
+    font-size: 18px;
     text-align: center;
+    width:fit-content;
     margin: 10px 10px;
-    padding: 5px 30px;
+    padding: 5px 20px;
     border-radius: 40px;
     border: #121511 solid 5px;
     background-color:#141813 ;
@@ -257,3 +278,5 @@ progress {
 .minus:active~ .counter {
     background-color: red;
 }
+
+
