@@ -134,6 +134,7 @@ meter {
 #item-name {
     height: min-content;
     width: auto;
+    text-align: center;
     justify-self: left;
 }
 
@@ -219,5 +220,9 @@ meter {
 
     .total {
         display:none
+    }
+    .goal-set, #item-name, #item-total {
+        width: 175px;
+        text-align: center;
     }
 }
