@@ -218,6 +218,7 @@ def getTotalItems(user, item):
     for item in data:
       sum += item[0]
 
+    print("this is the sum " + str(sum))
     return sum
 
 """

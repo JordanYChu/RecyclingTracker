@@ -10,16 +10,6 @@
     <script src="/static/scripts/informationRequest.js" defer></script>
     <script src="/static/scripts/PrimaryPage.js" defer></script>
     <script>
-        function fn() {
-            console.log("fn()")
-            const a = document.getElementsByClassName("item-info");
-            if($(a).hasClass('dismiss')) {
-                $(a).removeClass('dismiss').addClass('selected').show();
-            }
-            else if($(a).hasClass('selected')) {
-                $(a).removeClass('selected').addClass("dismiss");
-            }
-        }
     </script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Recycling Tracker</title>
@@ -49,8 +39,9 @@
     <div class="main">
         <div class="topbar">
             <h1>Today's Goal</h1>
+            <h1 id="goal-label">0</h1>
             <div class="daily-goal-container">
-                <progress id="total-goal-meter" value="10" max="123"></progress>
+                <progress id="total-goal-meter" value="0" max="0"></progress>
                 <input type="text" placeholder="Set Goal" id="goal-submit" onclick="setGoal()"></input>
             </div>
         </div>
@@ -60,7 +51,7 @@
                 <div id="soft-plastic" class="item-box">
                     <div class="item-title">
                         <h2>Soft Plastic</h2>
-                        <input type="image" src="/static/icons/more-info.png" onclick="fn()" id="more-info" />
+                        <input type="image" src="/static/icons/more-info.png" class="more-info" />
                     </div>
                     <figure>
                         <div>
@@ -76,7 +67,7 @@
                 <div id="hard-plastic" class="item-box">
                     <div class="item-title">
                         <h2>Hard Plastic</h2>
-                        <input type="image" src="/static/icons/more-info.png" onclick="fn()" id="more-info" />
+                        <input type="image" src="/static/icons/more-info.png" class="more-info" />
                     </div>
                     <figure>
                         <div>
@@ -92,7 +83,7 @@
                 <div id="glass" class="item-box">
                     <div class="item-title">
                         <h2>Glass</h2>
-                        <input type="image" src="/static/icons/more-info.png" onclick="fn()" id="more-info" />
+                        <input type="image" src="/static/icons/more-info.png" class="more-info" />
                     </div>
                     <figure>
                         <div>
@@ -108,7 +99,7 @@
                 <div id="paper" class="item-box">
                     <div class="item-title">
                         <h2>Paper</h2>
-                        <input type="image" src="/static/icons/more-info.png" onclick="fn()" id="more-info" />
+                        <input type="image" src="/static/icons/more-info.png" class="more-info" />
                     </div>
                     <figure>
                         <div>
@@ -124,7 +115,7 @@
                 <div id="cardboard" class="item-box">
                     <div class="item-title">
                         <h2>Cardboard</h2>
-                        <input type="image" src="/static/icons/more-info.png" onclick="fn()" id="more-info" />
+                        <input type="image" src="/static/icons/more-info.png" class="more-info" />
                     </div>
                     <figure>
                         <div>
@@ -140,7 +131,7 @@
                 <div id="metal" class="item-box">
                     <div class="item-title">
                         <h2>Metal</h2>
-                        <input type="image" src="/static/icons/more-info.png" onclick="fn()" id="more-info" />
+                        <input type="image" src="/static/icons/more-info.png" class="more-info" />
                     </div>
                     <figure>
                         <div>
@@ -156,7 +147,7 @@
                 <div id="electronics" class="item-box">
                     <div class="item-title">
                         <h2>Electronics</h2>
-                        <input type="image" src="/static/icons/more-info.png" onclick="fn()" id="more-info" />
+                        <input type="image" src="/static/icons/more-info.png" class="more-info" />
                     </div>
                     <figure>
                         <div>
@@ -172,7 +163,7 @@
                 <div id="textiles" class="item-box">
                     <div class="item-title">
                         <h2>Textiles</h2>
-                        <input type="image" src="/static/icons/more-info.png" onclick="fn()" id="more-info" />
+                        <input type="image" src="/static/icons/more-info.png" class="more-info" />
                     </div>
                     <figure>
                         <div>
@@ -188,7 +179,7 @@
                 <div id="styrofoam" class="item-box">
                     <div class="item-title">
                         <h2>Stryofoam</h2>
-                        <input type="image" src="/static/icons/more-info.png" onclick="fn()" id="more-info" />
+                        <input type="image" src="/static/icons/more-info.png" class="more-info" />
                     </div>
                     <figure>
                         <div>
@@ -202,7 +193,7 @@
                     </div>
                 </div> 
             </div>
-            <div id="item-tray" class="item-info dismiss">
+            <div id="item-tray" class="item-info selected">
                 <div class="box-title rounded-box"><div>Item Name</div></div>
                 <div class="box-image rounded-box">
                     <img class="tray-image" src="../static/icons/knitting.png" alt="">
@@ -218,11 +209,6 @@
                         Related Items
                     </h3>
                     <ul>
-                        <li>ab</li>
-                        <li>cd</li>
-                        <li>ed</li>
-                        <!-- <li>dfk</li>
-                        <li>asldk</li> -->
                     </ul>
                 </div>
             </div>

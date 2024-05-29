@@ -104,6 +104,7 @@ meter {
 }
 
 .meter-case { 
+    animation: 0.5s ease-in-out 1 loadBoxes;
     margin: 20px;
     padding: 10px;
     color: white;
@@ -155,6 +156,21 @@ meter {
     width: 0%;
 }
 
+/* aniamtino for .progress bar */
+.progress {
+    animation: 750ms ease-in-out 1 progressFill;
+    animation-fill-mode: forwards;
+}
+
+@keyframes progressFill {
+    0% {
+        width: 0%;
+    }
+    100% {
+        width: var(--goal-count);
+    }
+}
+
 /* Each Meter Color*/
 #soft-plastic > .item-meter > .progress {
     background-color: var(--pistachio);
@@ -200,6 +216,8 @@ meter {
     height: min-content;
 
 }
+
+
 
 @media (max-width: 620px) {
     .meter-info {

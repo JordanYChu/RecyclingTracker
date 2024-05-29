@@ -72,9 +72,14 @@ ul {
              -10px -10px 20px #1a1f19;
 }
 li.item-stat {
+    transition: 0.25s ease-in-out;
+    animation: 1s ease-in-out 1 loadBoxes;
     font-size: 25px;
     line-height: 50px;
     padding: 0 0 0 25px;
+}
+li.item-stat:hover {
+    transform: translateY(-5px);
 }
 .item-count {
     text-align: right;

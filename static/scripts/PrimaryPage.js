@@ -1,5 +1,45 @@
 //load User Data
 ITEM_IDS = ["soft-plastic", "hard-plastic", "glass", "paper", "cardboard", "metal", "electronics", "textiles", "styrofoam"];
+iconsDir = "../static/icons/"
+// item-id: (name, image-name, description, [item_list])
+descriptions = [
+    "A flexible material that feels soft and doesn’t have a fixed shape. It is commonly used daily as a bag/container for groceries or food. It usually ends up in landfills or even in nature, endangering the lives of various species."
+    ,"Another very common material to store items and foods. However, this type of plastic is much harder to break and has a fixed shape. This is also very dangerous to wildlife as they can get trapped in plastic"
+    ,"Glass is also commonly used as containers. Recycling them can save a lot of energy from producing glass with raw materials. However, broken glass can be dangerous to the workers! Don’t put those in the recycling bin."
+    ,"Paper is very common in our daily lives (Writing, Reading, Tissues, etc…) However, the world is cutting down too many trees in order to produce enough paper for us. Recycling can help prevent or slow down deforestation"
+    ,"A durable material usually used to store items as a container. Recycling this can help save a lot of energy costs from producing cardboard with raw materials. You can also reuse cardboard boxes for your own storage too!"
+    ,"Bring big metal scraps or appliances to a scrapyard or any depot! Metal is very durable and can be used for a variety of purposes. (Container, vehicle frames, cooking, etc…)"
+    ,"Anything related to or requires electricity should not be thrown away or recycled in the bin. These should only be recycled in designated depots hosted by the government! (To ensure that it is safely recycled)."
+    ,"Textiles include any clothing, accessories for footwear. They usually can be recycled or donated for other people to use! Usually there are drop off places for textiles to donate."
+    ,"A very useful material to help cushion fragile items inside packaging. It is also used as a container for food. A vast amount of styrofoam ends up in landfills every year, contaminating nearby environments."
+]
+all_related_items = [
+    ["Milk bags", "Produce bags", "Bubble wrap", "Recycling bags", "Sandwich bags"],
+    
+
+    [ "Plastic jugs", "Plastic bottles", "Takeout containers", "Plastic packaging", "Plastic drink cups" ],
+    ["Glass bottles", "Glass jars", "Packaging"],
+    ["Newspaper", "Writing paper", "Receipts", "Magazines", "Paper bags"],
+    ["Grocery cardboard boxes", "Paper cups", "Paper plats/bowls", "Milk Cartons"],
+    ["Aluminum cans/foils", "Tin cans", "Bicycle frames", "Household appliances", "Cooking pots/pans"],
+    ["Batteries", "Television", "Monitors", "Telephones", "Accessories (Keyboards, Mice)"],
+    ["Clothing", "Footwear (Shoes, Boots...)", "Accessories (Backpacks, Gloves)"],
+    ["Styrofoam packaging", "Takeout containers"]
+]
+info_store = {
+    "soft-plastic": ["Soft Plastic", "bag.png", descriptions[0], all_related_items[0]], 
+    "hard-plastic": ["Hard Plastic", "water-bottle.png", descriptions[1], all_related_items[1]], 
+    "glass": ["Glass", "glass-jar.png", descriptions[2], all_related_items[2]], 
+    "paper": ["Paper", "paper.png", descriptions[3], all_related_items[3]], 
+    "cardboard": ["Cardboard", "cardboard-box.png", descriptions[4], all_related_items[4]], 
+    "metal": ["Metal", "screw.png", descriptions[5], all_related_items[5]], 
+    "electronics": ["Electronics", "electronic.png", descriptions[6], all_related_items[6]], 
+    "textiles": ["Textiles", "knitting.png", descriptions[7], all_related_items[7]], 
+    "styrofoam": ["Styrofoam", "styrofoam.png", descriptions[8], all_related_items[8]]
+}
+
+load_side_info(document.getElementById("soft-plastic"))
+
 
 const getGoalFromDate = async (date) => {
     const post_info = {
@@ -31,13 +71,11 @@ const preloadData = async () => {
     }
     var json = await getGoalFromDate("")
     var goal = json["daily_goal"]
-    // goal_el.setAttribute("style", "--total: " + total + ";" + 
-    //                             "--goal_daily: " + goal + ";" +
-    //                             "--goal_tracker: \"" +total+"/"+goal +"\";" 
-    //                         )
     const d = document.getElementById("total-goal-meter")
     d.setAttribute("value", total)
     d.setAttribute("max", goal)
+    const goal_label = document.getElementById("goal-label")
+    goal_label.innerHTML = goal;
 }
 
 const getData = async (item_id) => {
@@ -89,10 +127,23 @@ for(var i = 0; i < 9; i++) {
     b.addEventListener("click", function() {
         let n = increment(parent.id, Number(counter_el.innerHTML) + 1)
         counter_el.innerHTML = Number(counter_el.innerHTML) + 1;
+        const d = document.getElementById("total-goal-meter")
+        d.setAttribute("value", Number(d.value)+1)
     })
     c.addEventListener("click", function() {
-        let n = increment(parent.id, Number(counter_el.innerHTML) - 1)
-        counter_el.innerHTML = Number(counter_el.innerHTML) - 1;
+        if(Number(counter_el.innerHTML) <= 0) {
+            counter_el.classList.add("reverse")
+        }
+        else {
+            let n = increment(parent.id, Number(counter_el.innerHTML) - 1)
+            counter_el.innerHTML = Number(counter_el.innerHTML) - 1;
+            const d = document.getElementById("total-goal-meter")
+            d.setAttribute("value", Number(d.value)-1)
+        }
+    })
+    counter_el.addEventListener("animationend", (e) => {
+        console.log("testing")
+        counter_el.classList.remove('reverse')
     })
 }
 
@@ -132,4 +183,57 @@ async function setGoal(new_goal) {
         console.log(e);
         });
     return await rawData.json();
+}
+
+lastOpenedItemId = ITEM_IDS[0];
+for(var i = 0; i < 9; i++) {
+    const tray = document.getElementById("item-tray");
+    const item_el = document.getElementById(ITEM_IDS[i]);
+    const more_info_el = item_el.getElementsByClassName("more-info")[0]
+    more_info_el.addEventListener("click", function() {
+        if(lastOpenedItemId == item_el.id) {
+            openCloseTray(item_el);
+        }
+        else if(lastOpenedItemId != item_el.id && $(tray).hasClass("selected")) {
+            load_side_info(item_el)
+            lastOpenedItemId = item_el.id
+        }
+        else {
+            openCloseTray(item_el);
+        }
+    })
+    
+}
+function load_side_info(item_el) {
+    const tray = document.getElementById("item-tray");
+    item_id = item_el.id
+    const item_details = info_store[item_id];
+    const box_title = tray.getElementsByClassName("box-title")[0].getElementsByTagName("div")[0];
+    const box_image = tray.getElementsByClassName("box-image")[0].getElementsByTagName("img")[0];
+    const box_description = tray.getElementsByClassName("box-description")[0].getElementsByTagName("p")[0];
+    const box_related = tray.getElementsByClassName("box-related-items")[0].getElementsByTagName("ul")[0];
+    box_title.innerHTML = item_details[0];
+    box_image.src = iconsDir+ item_details[1]
+
+    box_description.innerHTML = info_store[item_id][2]
+    const len_related_items = info_store[item_id][3].length;
+    while (box_related.firstChild) { 
+        box_related.removeChild(box_related.firstChild); 
+    }
+    for(var i = 0; i < len_related_items; i++) {
+        var related_item = document.createElement("li")
+        related_item.innerHTML = info_store[item_id][3][i];
+        box_related.appendChild(related_item)
+    }
+}
+
+function openCloseTray(item_el) {
+    const tray = document.getElementById("item-tray");
+    if($(tray).hasClass('dismiss')) {
+        $(tray).removeClass('dismiss').addClass('selected').show();
+    }
+    else if($(tray).hasClass('selected')) {
+        $(tray).removeClass('selected').addClass("dismiss");
+    }
+    load_side_info(item_el)
 }

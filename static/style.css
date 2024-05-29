@@ -107,9 +107,20 @@ h3 {
     flex: 1;
 }
 
-
 #background-gradient {
     background: radial-gradient(#3b4439, var(--background2));
     height: 100%;
     background-attachment: fixed;
+}
+
+
+@keyframes loadBoxes {
+  0% {
+    transform: translateY(10px);
+    opacity: 0%;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 100%;
+  }
 }
