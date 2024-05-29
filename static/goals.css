@@ -114,6 +114,7 @@ li.item-stat:hover {
     animation-fill-mode: forwards;  
     margin: auto;
     margin-top: 50px;
+    margin-bottom: 40px;
     width: 400px;
     height: 400px;
     border-radius: 50%;
