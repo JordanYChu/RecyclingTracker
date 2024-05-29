@@ -4,6 +4,8 @@ import sqlite3
 # Not for website instance
 cursor = sqlite3.connect("data/main.db")
 
+cursor.execute("CREATE TABLE daily_goals (id INTEGER PRIMARY KEY AUTOINCREMENT, item VARCHAR(255), quantity INT, date DATE, user_id INT, FOREIGN KEY (user_id) REFERENCES accounts(id));")
+
 """
 Add a new user to a database
 
