@@ -25,7 +25,6 @@ def data():
 def retrieve():
     json = request.json
     editItem(1, json["item"], json["count"], "2024-05-15")
-    print(json["count"])
     return jsonify({'total': json["count"]})
 
 """Get the total quantity of an item from everyday """
@@ -68,4 +67,6 @@ def retrieve_daily_goal():
     json = request.json
     userId = json['userId']
     date = json['date']
-    return jsonify({"daily_goal": 928})
+    print(getDGs(1, "2024-05-15"))
+    # return jsonify({"daily_goal": getDGs(1, "2024-05-15")})
+    return jsonify({"daily_goal": 923})

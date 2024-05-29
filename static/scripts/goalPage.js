@@ -67,10 +67,9 @@ async function updateTotalMeter() {
     //set goals for all item elements
     for(var i = 0; i < 9; i++) {
         let goal_meter_case = document.getElementById(ITEM_IDS[i])
-        let goal_meter = goal_meter_case.getElementsByTagName("meter")[0]
-        goal_meter.setAttribute("value", categories[i])
-
-        goal_meter.setAttribute("max", jsons[ITEM_IDS[i]])
+        let goal_meter = goal_meter_case.getElementsByClassName("progress")[0]
+        // goal_meter.setAttribute("styles", categories[i]) goal_meter.setAttribute("max", jsons[ITEM_IDS[i]])
+        goal_meter.setAttribute("style", "width: " + 100*categories[i]/jsons[ITEM_IDS[i]]+ "%;")
         let goal_counter = goal_meter_case.getElementsByTagName("label")[1]
         goal_counter.innerHTML = categories[i] + "/" + jsons[ITEM_IDS[i]];
     }
