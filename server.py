@@ -68,5 +68,5 @@ def retrieve_daily_goal():
     userId = json['userId']
     date = json['date']
     print(getDGs(1, "2024-05-15"))
-    # return jsonify({"daily_goal": getDGs(1, "2024-05-15")})
-    return jsonify({"daily_goal": 923})
+    return jsonify({"daily_goal": getDGs(1, "2024-05-15")})
+    # return jsonify({"daily_goal": 923})

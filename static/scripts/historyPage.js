@@ -57,7 +57,7 @@ const loadItems = async() => {
     // const day_goal = jsonData[insert_key_here]
     const goal_el = document.getElementsByClassName("circle-progress")[0]
     let total = 0;
-    for(var i = 0; i < 8; i++) {
+    for(var i = 0; i < 9; i++) {
         var count = jsonData[ITEM_IDS[i]]
         const item_el = document.getElementById(ITEM_IDS[i]).getElementsByClassName("item-count")[0]
         if(count == null) {

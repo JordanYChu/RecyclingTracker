@@ -11,6 +11,9 @@ stats-container
 
 
 .secondary {
+    position: sticky;
+    overflow: hidden;
+    overflow-y: scroll;
     height: 100%;
     background-image: url(../static/icons/trees.png);
     background-attachment: fixed;
@@ -49,9 +52,8 @@ stats-container
     grid-template-columns: 4fr 6fr;
 }
 
-.stats {
-    /* width: 60%; */
-}.day-total-stats {
+
+.day-total-stats {
     /* width: 40% */
 }
 ul {
