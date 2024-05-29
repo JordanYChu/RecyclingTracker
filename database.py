@@ -17,9 +17,10 @@ def addUser(username, email, password):
     sql = "INSERT INTO accounts (username, email, password) VALUES (?, ?, ?)"
     val = (username, email, password)
 
-    cursor.execute(sql, val)
-
-    cursor.commit()
+    with sqlite3.connect("data/main.db") as conn:
+        conn.execute(sql, val)
+        conn.commit()
+    conn.close()
 
     return
 
@@ -78,9 +79,10 @@ def addGoal(item, quantity, user):
     sql = "INSERT INTO goals (item, quantity, user_id) VALUES (?, ?, ?)"
     val = (item, quantity, user)
 
-    cursor.execute(sql, val)
-
-    cursor.commit()
+    with sqlite3.connect("data/main.db") as conn:
+        conn.execute(sql, val)
+        conn.commit()
+    conn.close()
 
     return
 
@@ -97,9 +99,10 @@ def editGoals(user, item, quantity):
     sql = "UPDATE goals SET quantity=? WHERE user_id=? AND item=?"
     val = (quantity, user, item)
 
-    cursor.execute(sql, val)
-
-    cursor.commit()
+    with sqlite3.connect("data/main.db") as conn:
+        conn.execute(sql, val)
+        conn.commit()
+    conn.close()
 
     return
 
