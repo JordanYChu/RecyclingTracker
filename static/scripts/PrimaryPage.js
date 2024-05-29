@@ -96,6 +96,40 @@ for(var i = 0; i < 9; i++) {
     })
 }
 
+const set_goal_el = document.getElementById("goal-submit")
+set_goal_el.addEventListener("keypress", function(event) {
+    if(event.key === "Enter" ) {
+        setGoal(Number(set_goal_el.value))
+        const d = document.getElementById("total-goal-meter")
+        d.setAttribute("max", Number(set_goal_el.value))
+        set_goal_el.value = "";
+    }
+})
 
 
-
+async function setGoal(new_goal) {
+    const update = {
+        "userId": 1,
+        "goal": new_goal
+    };
+    const options = {
+        method: 'POST',
+        headers: {
+        'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(update)
+    };
+    let rawData = await fetch('http://127.0.0.1:5000/input-daily-goal-values', options)
+    .then(data => {
+        if (!data.ok) {
+            throw Error(data.status);
+        }
+        return data.json();
+        }).then(update => {
+            console.log("writing update")
+            console.log(update);
+        }).catch(e => {
+        console.log(e);
+        });
+    return await rawData.json();
+}

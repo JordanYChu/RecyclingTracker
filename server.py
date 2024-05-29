@@ -70,3 +70,12 @@ def retrieve_daily_goal():
     print(getDGs(1, "2024-05-15"))
     return jsonify({"daily_goal": getDGs(1, "2024-05-15")})
     # return jsonify({"daily_goal": 923})
+
+@app.route('/input-daily-goal-values', methods=['POST','GET'])
+def input_daily_goal():
+    json = request.json
+    goal = json["goal"]
+    print(goal)
+    editDG(1, goal, "2024-05-15")
+    return jsonify({"daily_goal": getDGs(1, "2024-05-15")})
+    # return jsonify({"daily_goal": 923})

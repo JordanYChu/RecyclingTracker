@@ -275,7 +275,7 @@ date - the date that the item is added
 no returns
 """
 def editDG(user, quantity, date):
-    sql = "UPDATE daily_goals SET quantity=? WHERE user_id=? AND AND date=?"
+    sql = "UPDATE daily_goals SET quantity=? WHERE user_id=? AND date=?"
     val = (quantity, user, date)
 
     with sqlite3.connect("data/main.db") as conn:
