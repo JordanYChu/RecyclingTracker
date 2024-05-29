@@ -101,7 +101,6 @@
 
 meter {
     height: 50px;
-    margin: 0px 0px -10px 0px;
 }
 
 .meter-case { 
@@ -138,34 +137,55 @@ meter {
     justify-self: left;
 }
 
+.item-meter {
+    box-sizing: border-box;
+    height: 50px;
+    width: 100%;
+    background: #382815;
+    margin: 10px 0px 0px 0px;
+    padding: 5px;
+    border-radius: 50px;
+    border: solid 5px #241c14;
+}
+
+.progress {
+    border-radius: 50px;
+    background-color: blue;
+    height: 100%;
+    width: 0%;
+}
+
 /* Each Meter Color*/
-#soft-plastic meter::-webkit-meter-optimum-value {
+#soft-plastic > .item-meter > .progress {
     background-color: var(--pistachio);
 }
-#hard-plastic  meter::-webkit-meter-optimum-value {
+#hard-plastic  > .item-meter > .progress {
     background-color: var(--pistachio-3);
 }
-#glass  meter::-webkit-meter-optimum-value {
+#glass  > .item-meter > .progress {
     background-color: var(--pigment-green);
 }
 
-#paper  meter::-webkit-meter-optimum-value {
+#paper  > .item-meter > .progress {
     background-color: var(--viridian);
 }
 
-#cardboard  meter::-webkit-meter-optimum-value {
+#cardboard  > .item-meter > .progress {
     background-color: var(--caribbean-current);
 }
 
-#metal  meter::-webkit-meter-optimum-value {
+#metal  > .item-meter > .progress {
     background-color: var(--midnight-green);
 }
 
-#textiles  meter::-webkit-meter-optimum-value {
+#electronics > .item-meter > .progress {
     background-color: var(--oxford-blue);
 }
 
-#styrofoam  meter::-webkit-meter-optimum-value {
+#textiles > .item-meter > .progress {
+    background-color: var(--oxford-blue-2);
+}
+#styrofoam > .item-meter > .progress {
     background-color: var(--oxford-blue-2);
 }
 

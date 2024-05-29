@@ -17,9 +17,10 @@ def addUser(username, email, password):
     sql = "INSERT INTO accounts (username, email, password) VALUES (?, ?, ?)"
     val = (username, email, password)
 
-    cursor.execute(sql, val)
-
-    cursor.commit()
+    with sqlite3.connect("data/main.db") as conn:
+        conn.execute(sql, val)
+        conn.commit()
+    conn.close()
 
     return
 
@@ -45,27 +46,6 @@ def getUserId(username):
     return data[0]
 
 """
-Add a new item entry to the database
-
-item - a string containing the name of the item
-quantity - an integer of how much of the item
-date - the date that the item is added
-user - integer of user ID (Use getUserId)
-
-no returns
-"""
-def addItem(item, quantity, date, user):
-    sql = "INSERT INTO items (item, quantity, date, user_id) VALUES (?, ?, ?, ?)"
-    val = (item, quantity, date, user)
-
-    with sqlite3.connect("data/main.db") as conn:
-        conn.execute(sql, val)
-        conn.commit()
-    conn.close()
-
-    return
-
-"""
 Add a new goal entry to the database
 
 item - a string containing the name of the item
@@ -78,9 +58,10 @@ def addGoal(item, quantity, user):
     sql = "INSERT INTO goals (item, quantity, user_id) VALUES (?, ?, ?)"
     val = (item, quantity, user)
 
-    cursor.execute(sql, val)
-
-    cursor.commit()
+    with sqlite3.connect("data/main.db") as conn:
+        conn.execute(sql, val)
+        conn.commit()
+    conn.close()
 
     return
 
@@ -97,9 +78,10 @@ def editGoals(user, item, quantity):
     sql = "UPDATE goals SET quantity=? WHERE user_id=? AND item=?"
     val = (quantity, user, item)
 
-    cursor.execute(sql, val)
-
-    cursor.commit()
+    with sqlite3.connect("data/main.db") as conn:
+        conn.execute(sql, val)
+        conn.commit()
+    conn.close()
 
     return
 
@@ -125,6 +107,27 @@ def getGoals(user):
     conn.close()
 
     return data
+
+"""
+Add a new item entry to the database
+
+item - a string containing the name of the item
+quantity - an integer of how much of the item
+date - the date that the item is added
+user - integer of user ID (Use getUserId)
+
+no returns
+"""
+def addItem(item, quantity, date, user):
+    sql = "INSERT INTO items (item, quantity, date, user_id) VALUES (?, ?, ?, ?)"
+    val = (item, quantity, date, user)
+
+    with sqlite3.connect("data/main.db") as conn:
+        conn.execute(sql, val)
+        conn.commit()
+    conn.close()
+
+    return
 
 """
 Get a 2D list of items and their quantity based on a date
@@ -168,9 +171,7 @@ def editItem(user, item, quantity, date):
     with sqlite3.connect("data/main.db") as conn:
         if (itemExists(user, item, date) == 0):
             addItem(item, quantity, date, user)
-            print("added item")
         else:
-            print("adited item")
             conn.execute(sql, val)
             conn.commit()
     conn.close()
@@ -219,9 +220,92 @@ def getTotalItems(user, item):
 
     return sum
 
-data = cursor.execute("SELECT * FROM items")
-for x in data:
-    print(x)
+"""
+Add a new daily goal to the database
+
+quantity - an integer of how much of the item
+date - the date that the item is added
+user - integer of user ID (Use getUserId)
+
+no returns
+"""
+def addDG(quantity, date, user):
+    sql = "INSERT INTO daily_goals (quantity, date, user_id) VALUES (?, ?, ?)"
+    val = (quantity, date, user)
+
+    with sqlite3.connect("data/main.db") as conn:
+        conn.execute(sql, val)
+        conn.commit()
+    conn.close()
+
+    return
+
+"""
+Get a 2D list of daily goals and their quantity based on a date
+
+user - integer of user ID (Use getUserId)
+date - the date that you are filtering by
+
+returns a list of tuples ( quantity )
+Ex. 
+(
+    (9)
+    (8)
+    (4)
+)
+"""
+def getDGs(user, date):
+    sql = "SELECT quantity FROM daily_goals WHERE user_id=? AND date=?"
+    val = (user, date)
+
+    with sqlite3.connect("data/main.db") as conn:
+        data = list(conn.execute(sql, val))
+    conn.close()
+
+    return data
+
+"""
+Edit a currently existing daily goal in the database
+ALSO runs addGoal() if it doesn't exist for user on said date
+
+user - integer of user ID (Use getUserId)
+quantity - an integer of how much of the item
+date - the date that the item is added
+
+no returns
+"""
+def editDG(user, quantity, date):
+    sql = "UPDATE daily_goals SET quantity=? WHERE user_id=? AND AND date=?"
+    val = (quantity, user, date)
+
+    with sqlite3.connect("data/main.db") as conn:
+        if (DGExists(user, date) == 0):
+            addGoal(quantity, date, user)
+        else:
+            conn.execute(sql, val)
+            conn.commit()
+    conn.close()
+    return
+
+"""
+Check if the daily goal exists for a certain day and user in the database
+
+user - integer of user ID (Use getUserId)
+date - the date that the item is added
+
+returns an integer
+0 - does not exists
+int of entries - exists
+"""
+def DGExists(user, date):
+    sql = "SELECT id FROM daily_goals WHERE user_id=? AND date=?"
+    val = (user, date)
+    
+    with sqlite3.connect("data/main.db") as conn:
+        data = list(conn.execute(sql, val))
+    conn.close()
+
+    return len(data)
 
 print("Succesfully connected to DB")
 cursor.close()
