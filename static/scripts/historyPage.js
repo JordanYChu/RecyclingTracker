@@ -4,7 +4,7 @@ ITEM_IDS = ["soft-plastic", "hard-plastic", "glass", "paper", "cardboard", "meta
 const getItemsFromDate= async (date) => {
     //make post request
     const post_info = {
-        "userId": 1,
+        "username": USERNAME,
         "date": date
     };
     const options = {
@@ -36,7 +36,7 @@ const getItemsFromDate= async (date) => {
 
 const getGoalFromDate = async (date) => {
     const post_info = {
-        "userId": 1,
+        "username": USERNAME,
         "date": date
     };
     const options = {
@@ -86,30 +86,7 @@ function loadAnimations() {
     $(circle_anim).addClass('load-item-from-login').show();
 }
 
-//craete new user
-async function usernameQuery(username) {
-    const post_info = {
-        "username": username
-    };
-    const options = {
-        method: 'POST',
-        headers: {
-        'Content-Type': 'application/json',
-    },
-        body: JSON.stringify(post_info)
-    };
-    let rawData = await fetch('http://127.0.0.1:5000/login', options)
-    return await rawData.json()
-}
-
-const login_button = document.getElementById("login-button")
-login_button.addEventListener("click", async function() {
-    const usernameField = document.getElementById("username")
-    const jsonData = await usernameQuery(usernameField.value);
-    if(jsonData['login'] == "success") {
-        loadItems()
-    }
-})
-if(localStorage.getItem("username") == "Jordan50") {
+function loadData() {
     loadItems()
+    loadAnimations()
 }
