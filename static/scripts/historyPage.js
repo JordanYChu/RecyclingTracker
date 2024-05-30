@@ -1,11 +1,36 @@
 ITEM_IDS = ["soft-plastic", "hard-plastic", "glass", "paper", "cardboard", "metal", "electronics", "textiles", "styrofoam"];
 //GET request for data for specific day
 
-const getItemsFromDate= async (date) => {
+//Get datevar 
+var today = new Date();
+var dd = String(today.getDate()).padStart(2, '0');
+var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+var yyyy = today.getFullYear();
+
+// DATE = yyyy + '-' + mm + '-' + dd;
+DATE = "2024-05-16"
+
+const calendar_el = document.getElementById("calendar")
+calendar_el.addEventListener("change", function() {
+    DATE = calendar_el.value
+    loadData()
+    updateDateLabel()
+})
+
+function updateDateLabel() {
+    var date_obj = new Date(DATE.replace("-","/"));
+    var dateArr = date_obj.toDateString().split(' ');
+    var dateFormat = dateArr[2] + ' ' + dateArr[1] + ' ' + dateArr[3];
+    const date_label_el = document.getElementById("date-label")
+    date_label_el.innerHTML = dateFormat
+}
+
+
+const getItemsFromDate= async () => {
     //make post request
     const post_info = {
         "username": USERNAME,
-        "date": date
+        "date": DATE
     };
     const options = {
         method: 'POST',
@@ -15,21 +40,8 @@ const getItemsFromDate= async (date) => {
         body: JSON.stringify(post_info)
     };
     let rawData = await fetch('http://127.0.0.1:5000/all-item-values', options)
-    // .then(data => {
-    //     if (!data.ok) {
-    //         throw Error(data.status);
-    //     }
-    //     return data.json();
-    //     }).then(update => {
-    //         console.log("writing update")
-    //         console.log(update);
-    //     }).catch(e => {
-    //     console.log(e);
-    //     });
 
-    //make get request
     console.log("test", rawData)
-    // let rawData = await fetch("http://127.0.0.1:5000/all-item-values");
     let jsonData = await rawData.json();
     return jsonData;
 }
@@ -37,7 +49,7 @@ const getItemsFromDate= async (date) => {
 const getGoalFromDate = async (date) => {
     const post_info = {
         "username": USERNAME,
-        "date": date
+        "date": DATE
     };
     const options = {
         method: 'POST',
@@ -76,7 +88,6 @@ const loadItems = async() => {
                                 "--goal_tracker: \"" +total+"/"+goal +"\";" +
                                 "--test: " + (360*total/goal) + "deg;"
                             )
-    loadAnimations()
 }
 
 const circle_anim = document.getElementsByClassName("circle-progress")[0]
@@ -88,5 +99,6 @@ function loadAnimations() {
 
 function loadData() {
     loadItems()
+    updateDateLabel()
     loadAnimations()
 }

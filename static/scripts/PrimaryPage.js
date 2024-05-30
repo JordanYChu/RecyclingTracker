@@ -2,6 +2,15 @@
 ITEM_IDS = ["soft-plastic", "hard-plastic", "glass", "paper", "cardboard", "metal", "electronics", "textiles", "styrofoam"];
 iconsDir = "../static/icons/"
 
+//Get datevar 
+var today = new Date();
+var dd = String(today.getDate()).padStart(2, '0');
+var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+var yyyy = today.getFullYear();
+
+// DATE = yyyy + '-' + mm + '-' + dd;
+DATE = "2024-05-16"
+
 // item-id: (name, image-name, description, [item_list])
 descriptions = [
     "A flexible material that feels soft and doesn’t have a fixed shape. It is commonly used daily as a bag/container for groceries or food. It usually ends up in landfills or even in nature, endangering the lives of various species."
@@ -44,10 +53,10 @@ load_side_info(document.getElementById("soft-plastic"))
 let TOTAL = 0
 const n_tracker = document.getElementById("total-goal-meter").getElementsByTagName("div")[0]
 
-const getGoalFromDate = async (date) => {
+const getGoalFromDate = async () => {
     const post_info = {
         "username": USERNAME,
-        "date": date
+        "date": DATE
     };
     const options = {
         method: 'POST',
@@ -72,7 +81,7 @@ const loadData = async () => {
             total += items[ITEM_IDS[i]]
         }
     }
-    var json = await getGoalFromDate("")
+    var json = await getGoalFromDate()
     var goal = json["daily_goal"]
     const d = document.getElementById("total-goal-meter")
     let progress_bar = d.getElementsByTagName("div")[0]
@@ -97,7 +106,8 @@ async function increment(item, new_count) {
     const update = {
         "username": USERNAME,
         "item": item,
-        "count": new_count
+        "count": new_count,
+        "date": DATE
     };
     const options = {
         method: 'POST',
@@ -193,7 +203,8 @@ async function setsGoal(new_goal) {
         console.log("shouldnted")
     const update = {
         "username": USERNAME,
-        "goal": new_goal
+        "goal": new_goal,
+        "date": DATE
     };
     const options = {
         method: 'POST',

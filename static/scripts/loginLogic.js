@@ -44,13 +44,13 @@ new_acc_but.addEventListener("click", async function() {
         alert("username already exists")
     }
     else {
-        createNewUser(username)
+        await createNewUser(username)
         USERNAME = username
         localStorage.setItem("username", username)
-        loadData()
         loadUsername()
         openCloseLogin()
         addSignOut()
+        loadData()
     }
 })
 

@@ -8,6 +8,15 @@ console.log("Running Test.js");
 
 ITEM_IDS = ["soft-plastic", "hard-plastic", "glass", "paper", "cardboard", "metal", "electronics", "textiles", "styrofoam"];
 
+//Get datevar 
+var today = new Date();
+var dd = String(today.getDate()).padStart(2, '0');
+var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+var yyyy = today.getFullYear();
+
+// DATE = yyyy + '-' + mm + '-' + dd;
+DATE = "2024-05-16"
+
 const updateGoalValues = async () => {
     const post_info = {
         "username": USERNAME
@@ -144,6 +153,7 @@ for(var i = 0; i < 9; i++) {
 function loadData() {
     updateGoalValues()
     updateTotalMeter()
+    console.log("loading animations")
     loadAnimations()
 }
 

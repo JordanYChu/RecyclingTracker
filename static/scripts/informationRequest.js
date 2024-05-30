@@ -7,7 +7,8 @@ console.log("testing information requests")
 const getItems = async (username) => {
     console.log("inside getitems", username)
     const post_info = {
-        "username": username
+        "username": username,
+        "date": DATE
     };
     const options = {
         method: 'POST',
