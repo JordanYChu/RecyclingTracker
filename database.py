@@ -23,6 +23,17 @@ def addUser(username, email, password):
     conn.close()
 
     return
+    
+def addUser(username):
+    sql = "INSERT INTO accounts (username, email, password) VALUES (?, ?, ?)"
+    val = (username, "N/A", "N/A")
+
+    with sqlite3.connect("data/main.db") as conn:
+        conn.execute(sql, val)
+        conn.commit()
+    conn.close()
+
+    return
 
 def addUser(username):
     sql = "INSERT INTO accounts (username, email, password) VALUES (?, ?, ?)"
@@ -317,6 +328,10 @@ def DGExists(user, date):
     conn.close()
 
     return len(data)
+
+data = cursor.execute("SELECT * FROM accounts")
+for x in data:
+    print(x)
 
 print("Succesfully connected to DB")
 cursor.close()
