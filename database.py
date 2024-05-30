@@ -24,6 +24,16 @@ def addUser(username, email, password):
 
     return
 
+def addUser(username):
+    sql = "INSERT INTO accounts (username, email, password) VALUES (?, ?, ?)"
+    val = (username, "N/A", "NA")
+
+    with sqlite3.connect("data/main.db") as conn:
+        conn.execute(sql, val)
+        conn.commit()
+    conn.close()
+
+    return
 """
 Get the ID of an user
 

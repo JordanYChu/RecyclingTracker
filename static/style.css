@@ -14,24 +14,27 @@ html, body {
 }
 
 .login-box {
+  opacity: 0%;
+  transform: translateY(-150px);
   position: relative;
   z-index: 1;
-  background-color: var(--background2);
+  background-color: var(--background);
   padding: 10px;
-  border-radius: 5px;
+  border-radius: 15px;
   margin: 10px;
-  padding-bottom: 20px;
-  padding-top: 20px;
+  padding-bottom: 10px;
+  padding-top: 0px;
   display: flex;
   flex-direction: column;
+  box-shadow: 0 10px 10px var(--background2);
 }
 .textbox-username {
-  height: 25px;
+  height: 30px;
   border-radius: 10px;
   border: #121511 solid 3px;
   background-color: var(--text-darker);
-  margin-bottom: 10px;
   text-align: center;
+  margin-bottom: 5px;
 }
 
 .login-box label {
@@ -41,51 +44,56 @@ html, body {
 }
 
 .login-open {
-    animation: 750ms ease-in-out 1 openLogin;
+    animation: 500ms ease-in-out 1 openLogin forwards;
 }
 .login-closed {
-    animation: 750ms ease-in-out 1 closeLogin;
+    animation: 500ms ease-in-out 1 closeLogin forwards;
     animation-fill-mode: forwards;
 }
 
 @keyframes openLogin {
     0% {
+        opacity: 0%;
         transform: translateY(-150px);
     }
     100% {
+        opacity: 100%;
         transform: translateY(0px);
     }
 }
 @keyframes closeLogin{
     0% {
+        opacity: 100%;
         transform: translateY(0px);
     }
     100% {
+        opacity: 0%;
         transform: translateY(-150px);
     }
 }
 .login {
-  flex: 2;
-  margin-right: 5px;
+  /* flex: 2;
+  margin-right: 5px; */
 }
 .signup {
-  flex: 1;
+  /* flex: 1; */
 }
-
+/* 
 .username-buttons {
   display: flex;
   justify-content: space-between;
-}
+} */
 .username-button {
-    font-size: 15px;
-    line-height: 15px;
-    color: var(--text);
-    text-align: center;
-    border-radius: 10px;
-    background: var(--background2);
-    border: #121511 3px solid;
-    width: min-content;
-    padding-left: 5px;
+  display: block;
+  font-size: 15px;
+  line-height: 15px;
+  color: var(--text);
+  text-align: center;
+  border-radius: 10px;
+  background: var(--background2);
+  border: #121511 3px solid;
+  width: 100%;
+  padding: 5px;
 }
 
 .sidenav {

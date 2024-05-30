@@ -6,8 +6,6 @@ console.log("Running Test.js");
 // }
 // console.log(total)
 
-let USERNAME;
-
 ITEM_IDS = ["soft-plastic", "hard-plastic", "glass", "paper", "cardboard", "metal", "electronics", "textiles", "styrofoam"];
 
 const updateGoalValues = async () => {
@@ -86,38 +84,13 @@ async function updateTotalMeter() {
     cssText += "--styrofoam: " + percentages[8]*100 + "%;";
     meter.setAttribute("style",  cssText)
 }
-//craete new user
-async function usernameQuery(username) {
-    const post_info = {
-        "username": username
-    };
-    const options = {
-        method: 'POST',
-        headers: {
-        'Content-Type': 'application/json',
-    },
-        body: JSON.stringify(post_info)
-    };
-    let rawData = await fetch('http://127.0.0.1:5000/login', options)
-    return await rawData.json()
-}
 
-function loadPageData() {
+
+function loadData() {
     updateGoalValues()
     updateTotalMeter()
     loadAnimations()
 }
-
-const login_button = document.getElementById("login-button")
-login_button.addEventListener("click", async function() {
-    const usernameField = document.getElementById("username")
-    const username = usernameField.value
-    const jsonData = await usernameQuery(username);
-    if(jsonData['login'] == "success") {
-        USERNAME = username
-        loadPageData()
-    }
-})
 
 function loadAnimations() {
     for(var i = 0; i < 9; i++) {
@@ -127,7 +100,3 @@ function loadAnimations() {
     }
 }
 
-if(localStorage.getItem("username")) {
-    USERNAME = localStorage.getItem("username")
-    loadPageData()
-}

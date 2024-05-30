@@ -1,6 +1,7 @@
 //load User Data
 ITEM_IDS = ["soft-plastic", "hard-plastic", "glass", "paper", "cardboard", "metal", "electronics", "textiles", "styrofoam"];
 iconsDir = "../static/icons/"
+
 // item-id: (name, image-name, description, [item_list])
 descriptions = [
     "A flexible material that feels soft and doesn’t have a fixed shape. It is commonly used daily as a bag/container for groceries or food. It usually ends up in landfills or even in nature, endangering the lives of various species."
@@ -40,46 +41,10 @@ info_store = {
 
 load_side_info(document.getElementById("soft-plastic"))
 //login open and close logic
-function openCloseLogin() {
-    const user_box = document.getElementsByClassName("login-box")[0]
-    if($(user_box).hasClass('login-closed')) {
-        $(user_box).removeClass('login-closed').addClass('login-open').show();
-    }
-    else if($(user_box).hasClass('login-open')) {
-        $(user_box).removeClass('login-open').addClass("login-closed");
-    }
-}
-
-//craete new user
-async function usernameQuery(username) {
-    const post_info = {
-        "username": username
-    };
-    const options = {
-        method: 'POST',
-        headers: {
-        'Content-Type': 'application/json',
-    },
-        body: JSON.stringify(post_info)
-    };
-    let rawData = await fetch('http://127.0.0.1:5000/login', options)
-    return await rawData.json()
-}
-
-const login_button = document.getElementById("login-button")
-login_button.addEventListener("click", async function() {
-    const usernameField = document.getElementById("username")
-    const username = usernameField.value;
-    const jsonData = await usernameQuery(username);
-    if(jsonData['login'] == "success") {
-        localStorage.setItem('username', username)
-        loadData()
-    }
-})
 
 const getGoalFromDate = async (date) => {
     const post_info = {
-        "userId": 1,
+        "username": USERNAME,
         "date": date
     };
     const options = {
@@ -94,7 +59,7 @@ const getGoalFromDate = async (date) => {
 }
 const loadData = async () => {
     var total = 0;
-    let items = await getItems();
+    let items = await getItems(USERNAME);
     for(var i = 0; i < 9; i++) {
         let counter_label = document.getElementById(ITEM_IDS[i]).getElementsByClassName("counter")[0];
         if(items[ITEM_IDS[i]] == null) {
@@ -123,8 +88,9 @@ const getData = async (item_id) => {
     
 
 async function increment(item, new_count) {
+    console.log("user", USERNAME)
     const update = {
-        "userId": 1,
+        "username": USERNAME,
         "item": item,
         "count": new_count
     };
@@ -194,7 +160,7 @@ set_goal_el.addEventListener("keypress", function(event) {
 
 async function setGoal(new_goal) {
     const update = {
-        "userId": 1,
+        "username": USERNAME,
         "goal": new_goal
     };
     const options = {
@@ -272,7 +238,10 @@ function openCloseTray(item_el) {
     load_side_info(item_el)
 }
 
-//login to user
-if(localStorage.getItem("username") == "Jordan50") {
-    loadData()
+
+
+
+function loadAnimations() {
+    
 }
+//login to user

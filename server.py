@@ -4,6 +4,8 @@ from jsonHelpers import *
 
 app = Flask(__name__,template_folder='templates', static_folder='static')
 
+listOfCatagories = ["soft-plastic", "hard-plastic", "glass", "paper", "cardboard", "metal", "electronics", "textiles", "styrofoam"]
+
 @app.route('/')
 def index():
     return render_template('primary.html')
@@ -15,16 +17,30 @@ def history():
     return render_template('history.html')
 
 
-@app.route('/data')
+@app.route('/data', methods=['POST','GET'])
 def data():
-    # return  jsonify({'soft-plastic': 23, "hard-plastic": 65})
-    return returnAllItemValues(1, "2024-05-15")
+    json = request.json
+    print("-----------asdasdasdas")
+    username = json["username"]
+    getUserId(username)
+    userId = getUserId(username)[0]
+    if userId == -1:
+        return jsonify({'error', 'noUser'})
+    return returnAllItemValues(userId, "2024-05-15")
 
 
 @app.route('/retrieve-data', methods=['POST','GET'])
 def retrieve():
     json = request.json
-    editItem(1, json["item"], json["count"], "2024-05-15")
+    username = json["username"]
+    item = json["item"]
+    count = json["count"]
+    userId = getUserId(username)[0]
+    if userId == -1:
+        return jsonify({'error', 'noUser'})
+
+    print(userId, item, count)
+    editItem(userId, item, count, "2024-05-15")
     return jsonify({'total': json["count"]})
 
 """Get the total quantity of an item from everyday """
@@ -36,18 +52,17 @@ def retrieve_quantity_of_item():
     userId = getUserId(username)[0]
     if userId == -1:
         return jsonify({'error', 'noUser'})
-    return totalItemsJSON(1, item)
+    return totalItemsJSON(userId, item)
 
 
 @app.route('/all-item-values', methods=['POST','GET'])
 def retrieve_item_values():
     json = request.json
-    userId = json['userId']
+    username = json['username']
     date = json['date']
-    # return jsonify({'title': 2, "body": 3})
-    # userId = getUserId(user)
-    # if userID == -1:
-    #     return jsonify({'error', 'noUser'})
+    userId = getUserId(username)[0]
+    if userId == -1:
+        return jsonify({'error', 'noUser'})
     return returnAllItemValues(userId, date)
 
 @app.route('/all-goal-values', methods=['POST','GET'])
@@ -67,23 +82,27 @@ def retrieve_goals():
 @app.route('/daily-goal-values', methods=['POST','GET'])
 def retrieve_daily_goal():
     json = request.json
-    userId = json['userId']
+    username = json['username']
     date = json['date']
-    print(getDGs(1, "2024-05-15"))
-    return jsonify({"daily_goal": getDGs(1, "2024-05-15")})
-    # return jsonify({"daily_goal": 923})
+    userId = getUserId(username)[0]
+    if userId == -1:
+        return jsonify({'error', 'noUser'})
+    return jsonify({"daily_goal": getDGs(userId, "2024-05-15")})
 
 @app.route('/input-daily-goal-values', methods=['POST','GET'])
 def input_daily_goal():
     json = request.json
+    username = json["username"]
     goal = json["goal"]
-    print(goal)
-    editDG(1, goal, "2024-05-15")
-    return jsonify({"daily_goal": getDGs(1, "2024-05-15")})
+    userId = getUserId(username)[0]
+    if userId == -1:
+        return jsonify({'error', 'noUser'})
+    editDG(userId, goal, "2024-05-15")
+    return jsonify({"daily_goal": getDGs(userId, "2024-05-15")})
     # return jsonify({"daily_goal": 923})
 
 @app.route('/login', methods=['POST','GET'])
-def login_request():
+def  new_user_request():
     json = request.json
     username = json["username"]
     print(username)
@@ -91,4 +110,18 @@ def login_request():
         print("user does not exist")
         return jsonify({"login": "fail"})
     return jsonify({"login": "success"})
-    # return jsonify({"daily_goal": 923})
+
+@app.route('/new-user', methods=['POST','GET'])
+def login_request():
+    json = request.json
+    username = json["username"]
+    print(username)
+    addUser(username)
+    userId = getUserId(username)[0]
+    print("user id"  +str(userId))
+    #give quantities
+    addDG(25, "2024-05-15", userId)
+    for i in range(9):
+        addItem(listOfCatagories[i], 0, "2024-05-15", userId)
+        addGoal(listOfCatagories[i], 50, userId)
+    return jsonify({"login": "success"})
