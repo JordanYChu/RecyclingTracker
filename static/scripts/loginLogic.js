@@ -93,19 +93,24 @@ function addSignOut() {
     signOut.style.position = "absolute"
     sidenav.insertBefore(signOut, user.nextSibling)
     const signOut_el = sidenav.getElementsByTagName("a")[1]
-    signOut_el.getElementsByTagName("h3")[0].style.margin = "0px 25px 0px 25px"
+    const text_tag = signOut_el.getElementsByTagName("h3")[0]
+    text_tag.style.margin = "0px 25px 0px 25px"
+    text_tag.style.textAlign= "center"
     signOut_el.addEventListener("click", function() {
-        localStorage.removeItem("username")
-        location.reload()
+        if(text_tag.innerHTML == "Confirm?"){
+            localStorage.removeItem("username")
+            location.reload()
+        }
+        text_tag.innerHTML = "Confirm?"
     })
 }
 
 if(localStorage.getItem("username")) {
+    addSignOut()
     console.log("this is the user ", localStorage.getItem('username'))
     USERNAME = localStorage.getItem("username")
     loadData()
     loadUsername()
-    addSignOut()
 
     // loadAnimations();
 }

@@ -95,6 +95,9 @@ html, body {
   width: 100%;
   padding: 5px;
 }
+.username-button:active {
+  background-color: #121511;
+}
 
 .sidenav {
   box-sizing: border-box;

@@ -9,10 +9,20 @@
     width: 100%;
     height: 80px;
     margin: 0px 0px 10px 0px;
+
+}
+@keyframes fadeIn {
+    0% {
+        opacity: 0%;
+    }
+    100% {
+        opacity: 100%;
+    }
 }
 #global-meter {
-    --soft-plastic: 0%;
-    --hard-plastic: 0%;
+    animation: 1.5s fadeIn forwards;
+    --soft-plastic: 100%;
+    --hard-plastic: 100%;
     --glass: 0%;
     --paper: 0%;
     --cardboard: 0%;
@@ -40,7 +50,7 @@
                                     var(--oxford-blue-2) var(--electronics),
                                     var(--oxford-blue-2) var(--textiles),
                                     black var(--textiles),
-                                    black 100%);
+                                    black var(--styrofoam));
 }
 
 .total {
@@ -171,6 +181,7 @@ meter {
         width: var(--goal-count);
     }
 }
+
 
 /* Each Meter Color*/
 #soft-plastic > .item-meter > .progress {
