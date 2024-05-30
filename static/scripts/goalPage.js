@@ -43,8 +43,8 @@ const totalQuantityItem = async (item) => {
 
 
 }
+var categories = [0,0,0,0,0,0,0,0,0]
 async function updateTotalMeter() {
-    var categories = [0,0,0,0,0,0,0,0,0]
     var total =0;
     for(var i = 0;i < 9; i++) {
         let json =  await totalQuantityItem(ITEM_IDS[i])
@@ -85,6 +85,61 @@ async function updateTotalMeter() {
     meter.setAttribute("style",  cssText)
 }
 
+async function setGoal(new_goal, item_id) {
+    const update = {
+        "username": USERNAME,
+        "goal": new_goal,
+        "item": item_id
+    };
+    const options = {
+        method: 'POST',
+        headers: {
+        'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(update)
+    };
+    let rawData = await fetch('http://127.0.0.1:5000/input-goal-values', options)
+    .then(data => {
+        if (!data.ok) {
+            throw Error(data.status);
+        }
+        return data.json();
+        }).then(update => {
+            console.log("writing update")
+            console.log(update);
+        }).catch(e => {
+        console.log(e);
+        });
+}
+
+
+for(var i = 0; i < 9; i++) {
+    let item_el = document.getElementById(ITEM_IDS[i])   
+    let goal_setter = item_el.getElementsByClassName("goal-set")[0]
+    let index = i
+    goal_setter.addEventListener("keypress", function(event) {
+        if(event.key === "Enter") {
+            if(isNaN(goal_setter.value)) {
+                alert("Enter a numerical value.")
+                return
+            }
+            if(Number(goal_setter.value) < categories[index]) {
+                alert("Consider Setting a better goal")
+                return
+            }
+
+            setGoal(Number(goal_setter.value), item_el.id)
+            let goal_meter_case = document.getElementById(ITEM_IDS[index])
+            let goal_meter = goal_meter_case.getElementsByClassName("progress")[0]
+            goal_meter.setAttribute("style", "--goal-count: " + Math.min(100, 100*categories[index]/goal_setter.value)+ "%;")
+            let goal_counter = goal_meter_case.getElementsByTagName("label")[1]
+            goal_counter.innerHTML = categories[index] + "/" + goal_setter.value;
+            progressAnim(item_el.id)
+            goal_setter.value = ""
+            goal_setter.blur()
+        }
+    })
+}
 
 function loadData() {
     updateGoalValues()
@@ -94,9 +149,12 @@ function loadData() {
 
 function loadAnimations() {
     for(var i = 0; i < 9; i++) {
-        const progress_bar = document.getElementById(ITEM_IDS[i]).getElementsByClassName("progress")[0]
-        $(progress_bar).removeClass('progress_anim').show();
-        $(progress_bar).addClass('progress_anim').show();
+        progressAnim(ITEM_IDS[i])
     }
+}
+function progressAnim(item_id) {
+    const progress_bar = document.getElementById(item_id).getElementsByClassName("progress")[0]
+    $(progress_bar).removeClass('progress_anim').show();
+    $(progress_bar).addClass('progress_anim').show();
 }
 

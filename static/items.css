@@ -70,6 +70,7 @@ figure > div {
 }
 
 
+
 .counter {
     transition: 50ms ease-out;
     font-size: 20px;
@@ -237,11 +238,13 @@ h1 {
     align-items: center;
 }
 
-progress {
-    accent-color: #3b2a16;
+#total-goal-meter {
+    background-color: #3b2a16;
+    border-radius: 50px;
+    border: #121511 5px solid;
     margin: 0px;
-    padding: 0px;
-    height: 50px;
+    padding: 5px;
+    height: 30px;
     width: 100%;
     display: inline;
     float: left;
@@ -249,6 +252,28 @@ progress {
     vertical-align: middle;
 }
 
+.progress {
+    text-align: center;
+    --goal-count: 0%;
+    border-radius: 50px;
+    background-color: rgb(17, 104, 17);
+    height: 100%;
+    width: 0%;
+
+}
+
+.progress_anim {
+    animation: 750ms ease-in-out 1 progressFill forwards;
+}
+
+@keyframes progressFill {
+    0% {
+        width: 0%;
+    }
+    100% {
+        width: var(--goal-count);
+    }
+}
 #goal-submit {
     margin: 0px 0px 0px 20px;
     height: 18px;

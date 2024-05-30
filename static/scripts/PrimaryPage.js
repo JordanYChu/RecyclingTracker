@@ -41,6 +41,8 @@ info_store = {
 
 load_side_info(document.getElementById("soft-plastic"))
 //login open and close logic
+let TOTAL = 0
+const n_tracker = document.getElementById("total-goal-meter").getElementsByTagName("div")[0]
 
 const getGoalFromDate = async (date) => {
     const post_info = {
@@ -73,10 +75,14 @@ const loadData = async () => {
     var json = await getGoalFromDate("")
     var goal = json["daily_goal"]
     const d = document.getElementById("total-goal-meter")
-    d.setAttribute("value", total)
-    d.setAttribute("max", goal)
+    let progress_bar = d.getElementsByTagName("div")[0]
+    progress_bar.setAttribute("style", "--goal-count: " + Math.min(100,100*total/goal) + "%;")
     const goal_label = document.getElementById("goal-label")
     goal_label.innerHTML = goal;
+    $(progress_bar).removeClass('progress_anim').show();
+    $(progress_bar).addClass('progress_anim').show();
+    TOTAL = total
+    n_tracker.innerHTML = TOTAL
 }
 
 const getData = async (item_id) => {
@@ -88,7 +94,6 @@ const getData = async (item_id) => {
     
 
 async function increment(item, new_count) {
-    console.log("user", USERNAME)
     const update = {
         "username": USERNAME,
         "item": item,
@@ -129,6 +134,8 @@ for(var i = 0; i < 9; i++) {
         counter_el.innerHTML = Number(counter_el.innerHTML) + 1;
         const d = document.getElementById("total-goal-meter")
         d.setAttribute("value", Number(d.value)+1)
+        TOTAL++
+        n_tracker.innerHTML = TOTAL
     })
     c.addEventListener("click", function() {
         if(Number(counter_el.innerHTML) <= 0) {
@@ -139,6 +146,8 @@ for(var i = 0; i < 9; i++) {
             counter_el.innerHTML = Number(counter_el.innerHTML) - 1;
             const d = document.getElementById("total-goal-meter")
             d.setAttribute("value", Number(d.value)-1)
+            TOTAL--
+            n_tracker.innerHTML = TOTAL
         }
     })
     counter_el.addEventListener("animationend", (e) => {
@@ -148,17 +157,34 @@ for(var i = 0; i < 9; i++) {
 }
 
 const set_goal_el = document.getElementById("goal-submit")
-set_goal_el.addEventListener("keypress", function(event) {
+set_goal_el.addEventListener("keypress", function a(event) {
     if(event.key === "Enter" ) {
-        setGoal(Number(set_goal_el.value))
+        if(isNaN(set_goal_el.value)) {
+            alert("Enter a numerical value.")
+            return
+        }
+        if(Number(set_goal_el.value) < TOTAL) {
+            alert("Set a higher goal number")
+            return
+        }
+        setsGoal(Number(set_goal_el.value))
         const d = document.getElementById("total-goal-meter")
         d.setAttribute("max", Number(set_goal_el.value))
+        document.getElementById("goal-label").innerHTML = set_goal_el.value
+        set_goal_el.blur()
+        let progress_bar = document.getElementById("total-goal-meter").getElementsByTagName("div")[0]
+        let n = Number(set_goal_el.value)
+        console.log(n,TOTAL)
+        progress_bar.setAttribute("style", "--goal-count: " + Math.min(100,100*TOTAL/n) + "%;")
+        $(progress_bar).removeClass('progress_anim').show();
+        $(progress_bar).addClass('progress_anim').show();
         set_goal_el.value = "";
     }
 })
 
 
-async function setGoal(new_goal) {
+async function setsGoal(new_goal) {
+        console.log("shouldnted")
     const update = {
         "username": USERNAME,
         "goal": new_goal
@@ -237,11 +263,3 @@ function openCloseTray(item_el) {
     }
     load_side_info(item_el)
 }
-
-
-
-
-function loadAnimations() {
-    
-}
-//login to user

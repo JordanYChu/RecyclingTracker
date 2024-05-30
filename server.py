@@ -78,6 +78,18 @@ def retrieve_goals():
         goalDict[goal[0]] = goal[1]
     return jsonify(goalDict)
 
+@app.route('/input-goal-values', methods=['POST','GET'])
+def input_goal():
+    json = request.json
+    username = json['username']
+    goal = json['goal']
+    item = json['item']
+    userId = getUserId(username)[0]
+    if userId == -1:
+        return jsonify({'error', 'noUser'})
+    editGoals(userId, item , goal)
+    return jsonify({"set" : "success"})
+
 
 @app.route('/daily-goal-values', methods=['POST','GET'])
 def retrieve_daily_goal():

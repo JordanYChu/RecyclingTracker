@@ -1,4 +1,4 @@
-let USERNAME
+let USERNAME = null
 
 function loadUsername() {
     const user_el = document.getElementById("user").getElementsByTagName("h3")[0]
@@ -50,6 +50,7 @@ new_acc_but.addEventListener("click", async function() {
         loadData()
         loadUsername()
         openCloseLogin()
+        addSignOut()
     }
 })
 
