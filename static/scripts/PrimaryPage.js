@@ -5,13 +5,11 @@ iconsDir = "../static/icons/"
 //Get datevar 
 var today = new Date();
 var dd = String(today.getDate()).padStart(2, '0');
-var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+var mm = String(today.getMonth() + 1).padStart(2, '0');
 var yyyy = today.getFullYear();
 
-// DATE = yyyy + '-' + mm + '-' + dd;
-DATE = "2024-05-16"
+DATE = yyyy + '-' + mm + '-' + dd;
 
-// item-id: (name, image-name, description, [item_list])
 descriptions = [
     "A flexible material that feels soft and doesn’t have a fixed shape. It is commonly used daily as a bag/container for groceries or food. It usually ends up in landfills or even in nature, endangering the lives of various species."
     ,"Another very common material to store items and foods. However, this type of plastic is much harder to break and has a fixed shape. This is also very dangerous to wildlife as they can get trapped in plastic"
@@ -69,6 +67,9 @@ const getGoalFromDate = async () => {
     return await rawData.json()
 }
 const loadData = async () => {
+    if(!localStorage.getItem("username")) {
+        return
+    }
     var total = 0;
     let items = await getItems(USERNAME);
     for(var i = 0; i < 9; i++) {
@@ -140,6 +141,9 @@ for(var i = 0; i < 9; i++) {
     const counter_el = b.previousElementSibling;
     const parent = b.parentElement.parentElement;
     b.addEventListener("click", function() {
+        if(!localStorage.getItem("username")) {
+            return
+        }
         let n = increment(parent.id, Number(counter_el.innerHTML) + 1)
         counter_el.innerHTML = Number(counter_el.innerHTML) + 1;
         const d = document.getElementById("total-goal-meter")
@@ -149,6 +153,9 @@ for(var i = 0; i < 9; i++) {
         setGoalProperties(TOTAL, Number(document.getElementById("goal-label").innerHTML))
     })
     c.addEventListener("click", function() {
+        if(!localStorage.getItem("username")) {
+            return
+        }
         if(Number(counter_el.innerHTML) <= 0) {
             counter_el.classList.add("reverse")
         }
@@ -171,13 +178,15 @@ for(var i = 0; i < 9; i++) {
 
 const set_goal_el = document.getElementById("goal-submit")
 set_goal_el.addEventListener("keypress", function a(event) {
+    set_goal_el.addEventListener("animationend", (e) => {
+        set_goal_el.classList.remove('reverse')
+    })
     if(event.key === "Enter" ) {
-        if(isNaN(set_goal_el.value)) {
-            alert("Enter a numerical value.")
+        if(!localStorage.getItem("username")) {
             return
         }
-        if(Number(set_goal_el.value) < TOTAL) {
-            alert("Set a higher goal number")
+        if(isNaN(set_goal_el.value) || Number(set_goal_el.value) < TOTAL) {
+            set_goal_el.classList.add("reverse")
             return
         }
         setsGoal(Number(set_goal_el.value))

@@ -110,6 +110,7 @@ html, body {
 }
 
 .sidenav a {
+  cursor: pointer;
   transition: 100ms ease-out;
   border-radius: 5px;
   margin: 10px 10px;
@@ -145,6 +146,7 @@ html, body {
 }
 
 h3 {
+  white-space: nowrap;
   font-size: 20px;
   margin: 0px 0px 0px 25px;
   padding: 0px;
@@ -212,4 +214,21 @@ h3 {
     font-weight: 400;
     color:black ;
     opacity: 1 !important;
+}
+
+.reverse {
+    animation: 250ms ease-in-out 1 testing;
+}
+
+@keyframes testing {
+    0% {
+        transform: rotate(5deg);
+    }
+    50% {
+        transform: rotate(-5deg);
+        background-color: rgb(173, 38, 5);
+    }
+    100% {
+        transform: rotate(0deg);
+    }
 }

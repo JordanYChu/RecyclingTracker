@@ -1,21 +1,14 @@
 console.log("Running Test.js");
-// const categories = [4,1,10,1,10,1,1,1]
-// let total = 0
-// for(let i = 0; i < 8; i++) {
-//     total += categories[i];
-// }
-// console.log(total)
 
 ITEM_IDS = ["soft-plastic", "hard-plastic", "glass", "paper", "cardboard", "metal", "electronics", "textiles", "styrofoam"];
 
-//Get datevar 
 var today = new Date();
 var dd = String(today.getDate()).padStart(2, '0');
-var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+var mm = String(today.getMonth() + 1).padStart(2, '0'); 
 var yyyy = today.getFullYear();
 
 // DATE = yyyy + '-' + mm + '-' + dd;
-DATE = "2024-05-16"
+DATE = today
 
 const updateGoalValues = async () => {
     const post_info = {
@@ -75,7 +68,6 @@ async function updateTotalMeter() {
     for(var i = 0; i < 9; i++) {
         let goal_meter_case = document.getElementById(ITEM_IDS[i])
         let goal_meter = goal_meter_case.getElementsByClassName("progress")[0]
-        // goal_meter.setAttribute("styles", categories[i]) goal_meter.setAttribute("max", jsons[ITEM_IDS[i]])
         goal_meter.setAttribute("style", "--goal-count: " + Math.min(100, 100*categories[i]/jsons[ITEM_IDS[i]])+ "%;")
         let goal_counter = goal_meter_case.getElementsByTagName("label")[1]
         goal_counter.innerHTML = categories[i] + "/" + jsons[ITEM_IDS[i]];
@@ -126,14 +118,16 @@ for(var i = 0; i < 9; i++) {
     let item_el = document.getElementById(ITEM_IDS[i])   
     let goal_setter = item_el.getElementsByClassName("goal-set")[0]
     let index = i
+    goal_setter.addEventListener("animationend", function(e) {
+        goal_setter.classList.remove("reverse")
+    })
     goal_setter.addEventListener("keypress", function(event) {
-        if(event.key === "Enter") {
-            if(isNaN(goal_setter.value)) {
-                alert("Enter a numerical value.")
-                return
-            }
-            if(Number(goal_setter.value) < categories[index]) {
-                alert("Consider Setting a better goal")
+        if(!localStorage.getItem("username")) {
+            return
+        }
+        if(event.key === "Enter" ) {
+            if(isNaN(goal_setter.value)||Number(goal_setter.value) < categories[index] ) {
+                goal_setter.classList.add("reverse")
                 return
             }
 
@@ -151,6 +145,9 @@ for(var i = 0; i < 9; i++) {
 }
 
 function loadData() {
+    if(!localStorage.getItem("username")) {
+        return
+    }
     updateGoalValues()
     updateTotalMeter()
     console.log("loading animations")

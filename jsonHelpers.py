@@ -4,6 +4,7 @@ from database import *
 import server
 
 listOfCatagories = ["soft-plastic", "hard-plastic", "glass", "paper", "cardboard", "metal", "electronics", "textiles", "styrofoam"]
+default_goal = 25
 
 def totalItemsJSON(user, item):
     return jsonify({'total': getTotalItems(user, item)})
@@ -18,6 +19,10 @@ def returnAllItemValues(user, date):
     return jsonify(itemDict)
 
 
+def createNewDayData(userId, date):
+    for i in range(9):
+        addItem(listOfCatagories[i], 0, date, userId)
+    addDG(default_goal, date, userId)
 
 
 

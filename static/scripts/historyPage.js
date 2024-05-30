@@ -1,14 +1,21 @@
 ITEM_IDS = ["soft-plastic", "hard-plastic", "glass", "paper", "cardboard", "metal", "electronics", "textiles", "styrofoam"];
 //GET request for data for specific day
+let DATE;
 
-//Get datevar 
-var today = new Date();
+let today = new Date();
 var dd = String(today.getDate()).padStart(2, '0');
-var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+var mm = String(today.getMonth() + 1).padStart(2, '0');
 var yyyy = today.getFullYear();
+DATE = yyyy + '-' + mm + '-' + dd;
+//todays date
 
-// DATE = yyyy + '-' + mm + '-' + dd;
-DATE = "2024-05-16"
+function getDateFromObj(date_obj) {
+    var dd = String(date_obj.getDate()).padStart(2, '0');
+    var mm = String(date_obj.getMonth() + 1).padStart(2, '0'); 
+    var yyyy = date_obj.getFullYear();
+    DATE = yyyy + '-' + mm + '-' + dd;
+}
+
 
 const calendar_el = document.getElementById("calendar")
 calendar_el.addEventListener("change", function() {
@@ -16,6 +23,22 @@ calendar_el.addEventListener("change", function() {
     loadData()
     updateDateLabel()
 })
+
+function nextDay() {
+    var date_obj = new Date(DATE.replace("-","/"));
+    var tomorrow = new Date(date_obj.getTime() + (24 * 60 * 60 * 1000))
+    getDateFromObj(tomorrow)
+    loadData()
+    updateDateLabel()
+}
+
+function previousDay() {
+    var date_obj = new Date(DATE.replace("-","/"));
+    var  yesterday = new Date(date_obj.getTime() - (24 * 60 * 60 * 1000))
+    getDateFromObj(yesterday)
+    loadData()
+    updateDateLabel()
+}
 
 function updateDateLabel() {
     var date_obj = new Date(DATE.replace("-","/"));
@@ -46,7 +69,7 @@ const getItemsFromDate= async () => {
     return jsonData;
 }
 
-const getGoalFromDate = async (date) => {
+const getGoalFromDate = async () => {
     const post_info = {
         "username": USERNAME,
         "date": DATE
@@ -64,9 +87,7 @@ const getGoalFromDate = async (date) => {
 
 const loadItems = async() => {
     console.log("loading items..")
-    let jsonData = await getItemsFromDate("2024-05-15");
-    console.log(jsonData["cardboard"])
-    // const day_goal = jsonData[insert_key_here]
+    let jsonData = await getItemsFromDate();
     const goal_el = document.getElementsByClassName("circle-progress")[0]
     let total = 0;
     for(var i = 0; i < 9; i++) {
@@ -83,6 +104,11 @@ const loadItems = async() => {
     //get goal
     var json = await getGoalFromDate("")
     var goal = json["daily_goal"]
+    console.log(goal)
+    if(goal.length == 0) {
+        goal_el.setAttribute("style", "--goal_tracker: \" Unrecycled \";")
+        return
+    }
     goal_el.setAttribute("style", "--total: " + total + ";" + 
                                 "--goal_daily: " + goal + ";" +
                                 "--goal_tracker: \"" +total+"/"+goal +"\";" +
@@ -98,6 +124,9 @@ function loadAnimations() {
 }
 
 function loadData() {
+    if(!localStorage.getItem("username")) {
+        return
+    }
     loadItems()
     updateDateLabel()
     loadAnimations()
