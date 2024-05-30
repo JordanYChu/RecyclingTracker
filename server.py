@@ -136,4 +136,8 @@ def login_request():
     for i in range(9):
         addItem(listOfCatagories[i], 0, "2024-05-15", userId)
         addGoal(listOfCatagories[i], 50, userId)
+    
+    # testing stuff 
+    editItem(userId, "soft-plastic", 50, "2024-05-15")
+    editItem(userId, "soft-plastic", 53, "2024-05-16")
     return jsonify({"login": "success"})

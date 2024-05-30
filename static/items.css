@@ -255,6 +255,7 @@ h1 {
 .progress {
     text-align: center;
     --goal-count: 0%;
+    --old-width: 0%;
     border-radius: 50px;
     background-color: rgb(17, 104, 17);
     height: 100%;
@@ -268,7 +269,7 @@ h1 {
 
 @keyframes progressFill {
     0% {
-        width: 0%;
+        width: var(--old-width);
     }
     100% {
         width: var(--goal-count);

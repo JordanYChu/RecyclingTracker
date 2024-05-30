@@ -136,6 +136,7 @@ for(var i = 0; i < 9; i++) {
         d.setAttribute("value", Number(d.value)+1)
         TOTAL++
         n_tracker.innerHTML = TOTAL
+        setGoalProperties(TOTAL, Number(document.getElementById("goal-label").innerHTML))
     })
     c.addEventListener("click", function() {
         if(Number(counter_el.innerHTML) <= 0) {
@@ -148,6 +149,8 @@ for(var i = 0; i < 9; i++) {
             d.setAttribute("value", Number(d.value)-1)
             TOTAL--
             n_tracker.innerHTML = TOTAL
+            setGoalProperties(TOTAL, Number(document.getElementById("goal-label").innerHTML))
+
         }
     })
     counter_el.addEventListener("animationend", (e) => {
@@ -174,14 +177,17 @@ set_goal_el.addEventListener("keypress", function a(event) {
         set_goal_el.blur()
         let progress_bar = document.getElementById("total-goal-meter").getElementsByTagName("div")[0]
         let n = Number(set_goal_el.value)
-        console.log(n,TOTAL)
-        progress_bar.setAttribute("style", "--goal-count: " + Math.min(100,100*TOTAL/n) + "%;")
-        $(progress_bar).removeClass('progress_anim').show();
-        $(progress_bar).addClass('progress_anim').show();
+        setGoalProperties(TOTAL, n)
         set_goal_el.value = "";
     }
 })
 
+function setGoalProperties(total, new_goal) {
+        let progress_bar = document.getElementById("total-goal-meter").getElementsByTagName("div")[0]
+        progress_bar.setAttribute("style","--old-width: " + getComputedStyle(progress_bar).getPropertyValue("--goal-count") + "; --goal-count: " + Math.min(100,100*total/new_goal) + "%;")
+        $(progress_bar).removeClass('progress_anim').show();
+        $(progress_bar).addClass('progress_anim').show();
+}
 
 async function setsGoal(new_goal) {
         console.log("shouldnted")
@@ -208,7 +214,6 @@ async function setsGoal(new_goal) {
         }).catch(e => {
         console.log(e);
         });
-    return await rawData.json();
 }
 
 lastOpenedItemId = ITEM_IDS[0];
