@@ -139,12 +139,12 @@ for(var i = 0; i < 9; i++) {
     })
 }
 
-function loadData() {
+async function loadData() {
     if(!localStorage.getItem("username")) {
         return
     }
-    updateGoalValues()
-    updateTotalMeter()
+    await updateGoalValues()
+    await updateTotalMeter()
     loadAnimations()
 }
 
