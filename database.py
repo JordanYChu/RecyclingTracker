@@ -229,7 +229,6 @@ def getTotalItems(user, item):
     for item in data:
       sum += item[0]
 
-    print("this is the sum " + str(sum))
     return sum
 
 """
@@ -318,10 +317,6 @@ def DGExists(user, date):
     conn.close()
 
     return len(data)
-
-data = cursor.execute("SELECT * FROM accounts")
-for x in data:
-    print(x)
 
 print("Succesfully connected to DB")
 cursor.close()
