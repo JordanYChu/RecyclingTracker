@@ -30,13 +30,12 @@ async function createNewUser(username) {
     },
         body: JSON.stringify(post_info)
     };
-    let rawData = await fetch('http://127.0.0.1:5000/new-user', options)
+    let rawData = await fetch('/new-user', options)
     return await rawData.json()
 }
 
 const new_acc_but = document.getElementById("new-account-button")
 new_acc_but.addEventListener("click", async function() {
-    console.log("inside login logic")
     const usernameField = document.getElementById("username")
     const username = usernameField.value;
     const jsonData = await usernameQuery(username);
@@ -68,7 +67,7 @@ async function usernameQuery(username) {
     },
         body: JSON.stringify(post_info)
     };
-    let rawData = await fetch('http://127.0.0.1:5000/login', options)
+    let rawData = await fetch('/login', options)
     return await rawData.json()
 }
 
@@ -117,7 +116,6 @@ function addSignOut() {
 
 if(localStorage.getItem("username")) {
     addSignOut()
-    console.log("this is the user ", localStorage.getItem('username'))
     USERNAME = localStorage.getItem("username")
     loadData()
     loadUsername()

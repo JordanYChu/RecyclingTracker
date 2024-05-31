@@ -1,5 +1,3 @@
-console.log("Running Test.js");
-
 ITEM_IDS = ["soft-plastic", "hard-plastic", "glass", "paper", "cardboard", "metal", "electronics", "textiles", "styrofoam"];
 
 var today = new Date();
@@ -21,7 +19,7 @@ const updateGoalValues = async () => {
     },
         body: JSON.stringify(post_info)
     };
-    let rawData = await fetch('http://127.0.0.1:5000/all-goal-values', options)
+    let rawData = await fetch('/all-goal-values', options)
     let jsons = await rawData.json()
     return jsons
 }
@@ -39,7 +37,7 @@ const totalQuantityItem = async (item) => {
     },
         body: JSON.stringify(post_info)
     };
-    let rawData = await fetch('http://127.0.0.1:5000/total-item-data', options)
+    let rawData = await fetch('/total-item-data', options)
     let jsons = await rawData.json()
     return jsons;
 
@@ -54,7 +52,6 @@ async function updateTotalMeter() {
         total+=categories[i]
     }
 
-    console.log("Inside Ratio")
     const meter = document.getElementById("global-meter");
     //calculate percentages
     let percentages = [0,0,0,0,0,0,0,0,0]
@@ -99,15 +96,13 @@ async function setGoal(new_goal, item_id) {
         },
         body: JSON.stringify(update)
     };
-    let rawData = await fetch('http://127.0.0.1:5000/input-goal-values', options)
+    let rawData = await fetch('/input-goal-values', options)
     .then(data => {
         if (!data.ok) {
             throw Error(data.status);
         }
         return data.json();
         }).then(update => {
-            console.log("writing update")
-            console.log(update);
         }).catch(e => {
         console.log(e);
         });
@@ -150,7 +145,6 @@ function loadData() {
     }
     updateGoalValues()
     updateTotalMeter()
-    console.log("loading animations")
     loadAnimations()
 }
 

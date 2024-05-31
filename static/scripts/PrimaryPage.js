@@ -63,7 +63,7 @@ const getGoalFromDate = async () => {
     },
         body: JSON.stringify(post_info)
     };
-    let rawData = await fetch('http://127.0.0.1:5000/daily-goal-values', options)
+    let rawData = await fetch('/daily-goal-values', options)
     return await rawData.json()
 }
 const loadData = async () => {
@@ -117,19 +117,16 @@ async function increment(item, new_count) {
         },
         body: JSON.stringify(update)
     };
-    let rawData = await fetch('http://127.0.0.1:5000/retrieve-data', options)
+    let rawData = await fetch('/retrieve-data', options)
     .then(data => {
         if (!data.ok) {
             throw Error(data.status);
         }
         return data.json();
         }).then(update => {
-            console.log("writing update")
-            console.log(update);
         }).catch(e => {
         console.log(e);
         });
-    return await rawData.json();
 }
 
 //adding event listener for plus/minus icon
@@ -171,7 +168,6 @@ for(var i = 0; i < 9; i++) {
         }
     })
     counter_el.addEventListener("animationend", (e) => {
-        console.log("testing")
         counter_el.classList.remove('reverse')
     })
 }
@@ -209,7 +205,6 @@ function setGoalProperties(total, new_goal) {
 }
 
 async function setsGoal(new_goal) {
-        console.log("shouldnted")
     const update = {
         "username": USERNAME,
         "goal": new_goal,
@@ -222,15 +217,13 @@ async function setsGoal(new_goal) {
         },
         body: JSON.stringify(update)
     };
-    let rawData = await fetch('http://127.0.0.1:5000/input-daily-goal-values', options)
+    let rawData = await fetch('/input-daily-goal-values', options)
     .then(data => {
         if (!data.ok) {
             throw Error(data.status);
         }
         return data.json();
         }).then(update => {
-            console.log("writing update")
-            console.log(update);
         }).catch(e => {
         console.log(e);
         });

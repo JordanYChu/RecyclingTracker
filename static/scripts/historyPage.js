@@ -62,9 +62,8 @@ const getItemsFromDate= async () => {
     },
         body: JSON.stringify(post_info)
     };
-    let rawData = await fetch('http://127.0.0.1:5000/all-item-values', options)
+    let rawData = await fetch('/all-item-values', options)
 
-    console.log("test", rawData)
     let jsonData = await rawData.json();
     return jsonData;
 }
@@ -81,12 +80,11 @@ const getGoalFromDate = async () => {
     },
         body: JSON.stringify(post_info)
     };
-    let rawData = await fetch('http://127.0.0.1:5000/daily-goal-values', options)
+    let rawData = await fetch('/daily-goal-values', options)
     return await rawData.json()
 }
 
 const loadItems = async() => {
-    console.log("loading items..")
     let jsonData = await getItemsFromDate();
     const goal_el = document.getElementsByClassName("circle-progress")[0]
     let total = 0;
@@ -104,7 +102,6 @@ const loadItems = async() => {
     //get goal
     var json = await getGoalFromDate("")
     var goal = json["daily_goal"]
-    console.log(goal)
     if(goal.length == 0) {
         goal_el.setAttribute("style", "--goal_tracker: \" Unrecycled \";")
         return
