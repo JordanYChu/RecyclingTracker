@@ -11,12 +11,10 @@ db = psycopg2.connect(  database="verceldb",
 conn = db.cursor()
 
 def initialize():
-    conn.execute("CREATE TABLE accounts (id INTEGER PRIMARY KEY AUTOINCREMENT, username VARCHAR(255), email VARCHAR(255), password VARCHAR(255))")
-    conn.execute("CREATE TABLE items (id INTEGER PRIMARY KEY AUTOINCREMENT, item VARCHAR(255), quantity INT, date DATE, user_id INT, FOREIGN KEY (user_id) REFERENCES accounts(id));")
-    conn.execute("CREATE TABLE goals (id INTEGER PRIMARY KEY AUTOINCREMENT, item VARCHAR(255), quantity INT, user_id INT, FOREIGN KEY (user_id) REFERENCES accounts(id));")
-    conn.execute("CREATE TABLE daily_goals (id INTEGER PRIMARY KEY AUTOINCREMENT, quantity INT, date DATE, user_id INT, FOREIGN KEY (user_id) REFERENCES accounts(id));")
-
-    conn.commit()
+    conn.execute("CREATE TABLE accounts (id SERIAL PRIMARY KEY, username VARCHAR(255), email VARCHAR(255), password VARCHAR(255))")
+    conn.execute("CREATE TABLE items (id SERIAL PRIMARY KEY, item VARCHAR(255), quantity INT, date DATE, user_id INT, FOREIGN KEY (user_id) REFERENCES accounts(id));")
+    conn.execute("CREATE TABLE goals (id SERIAL PRIMARY KEY, item VARCHAR(255), quantity INT, user_id INT, FOREIGN KEY (user_id) REFERENCES accounts(id));")
+    conn.execute("CREATE TABLE daily_goals (id SERIAL PRIMARY KEY, quantity INT, date DATE, user_id INT, FOREIGN KEY (user_id) REFERENCES accounts(id));")
 
 """
 Add a new user to a database
@@ -28,20 +26,42 @@ password - login password (encryption later!)
 no returns
 """
 def addUser(username, email, password):
-    sql = "INSERT INTO accounts (username, email, password) VALUES (?, ?, ?)"
+    db = psycopg2.connect(  database="verceldb",
+                        host="ep-calm-paper-a4hcdu85-pooler.us-east-1.aws.neon.tech",
+                        user="default",
+                        password="cL2Ju1rktQPm",
+                        port="5432")
+
+    conn = db.cursor()
+
+    sql = "INSERT INTO accounts (username, email, password) VALUES (%s, %s, %s)"
     val = (username, email, password)
 
     conn.execute(sql, val)
-    conn.commit()
+
+    db.commit()
+
+    conn.close()
 
     return
     
 def addUser(username):
-    sql = "INSERT INTO accounts (username, email, password) VALUES (?, ?, ?)"
+    db = psycopg2.connect(  database="verceldb",
+                        host="ep-calm-paper-a4hcdu85-pooler.us-east-1.aws.neon.tech",
+                        user="default",
+                        password="cL2Ju1rktQPm",
+                        port="5432")
+
+    conn = db.cursor()
+
+    sql = "INSERT INTO accounts (username, email, password) VALUES (%s, %s, %s)"
     val = (username, "N/A", "N/A")
 
     conn.execute(sql, val)
-    conn.commit()
+
+    db.commit()
+
+    conn.close()
 
     return
 
@@ -55,14 +75,25 @@ integer (if username exists)
 -1      (if username does not exist)
 """
 def getUserId(username):
-    sql = "SELECT id FROM accounts WHERE username=?"
+    db = psycopg2.connect(  database="verceldb",
+                        host="ep-calm-paper-a4hcdu85-pooler.us-east-1.aws.neon.tech",
+                        user="default",
+                        password="cL2Ju1rktQPm",
+                        port="5432")
+
+    conn = db.cursor()
+
+    sql = "SELECT id FROM accounts WHERE username=%s"
     val = (username,)
 
-    data = list(conn.execute(sql, val))
+    conn.execute(sql, val)
+    data = conn.fetchall()
+
+    conn.close()
 
     if (len(data) < 1):
         return -1
-    return data[0]
+    return list(data)[0]
 
 """
 Add a new goal entry to the database
@@ -74,11 +105,22 @@ user - integer of user ID (Use getUserId)
 no returns
 """
 def addGoal(item, quantity, user):
-    sql = "INSERT INTO goals (item, quantity, user_id) VALUES (?, ?, ?)"
+    db = psycopg2.connect(  database="verceldb",
+                        host="ep-calm-paper-a4hcdu85-pooler.us-east-1.aws.neon.tech",
+                        user="default",
+                        password="cL2Ju1rktQPm",
+                        port="5432")
+
+    conn = db.cursor()
+
+    sql = "INSERT INTO goals (item, quantity, user_id) VALUES (%s, %s, %s)"
     val = (item, quantity, user)
 
     conn.execute(sql, val)
-    conn.commit()
+
+    db.commit()
+
+    conn.close()
 
     return
 
@@ -92,11 +134,22 @@ quantity - an integer of how much of the item
 no returns
 """
 def editGoals(user, item, quantity):
-    sql = "UPDATE goals SET quantity=? WHERE user_id=? AND item=?"
+    db = psycopg2.connect(  database="verceldb",
+                        host="ep-calm-paper-a4hcdu85-pooler.us-east-1.aws.neon.tech",
+                        user="default",
+                        password="cL2Ju1rktQPm",
+                        port="5432")
+
+    conn = db.cursor()
+    
+    sql = "UPDATE goals SET quantity=%s WHERE user_id=%s AND item=%s"
     val = (quantity, user, item)
 
     conn.execute(sql, val)
-    conn.commit()
+
+    db.commit()
+
+    conn.close()
 
     return
 
@@ -114,10 +167,21 @@ Ex.
 )
 """
 def getGoals(user):
-    sql = "SELECT item, quantity FROM goals WHERE user_id=?"
+    db = psycopg2.connect(  database="verceldb",
+                        host="ep-calm-paper-a4hcdu85-pooler.us-east-1.aws.neon.tech",
+                        user="default",
+                        password="cL2Ju1rktQPm",
+                        port="5432")
+
+    conn = db.cursor()
+
+    sql = "SELECT item, quantity FROM goals WHERE user_id=%s"
     val = (user,)
 
-    data = list(conn.execute(sql, val))
+    conn.execute(sql, val)
+    data = conn.fetchall()
+
+    conn.close()
 
     return data
 
@@ -132,11 +196,22 @@ user - integer of user ID (Use getUserId)
 no returns
 """
 def addItem(item, quantity, date, user):
-    sql = "INSERT INTO items (item, quantity, date, user_id) VALUES (?, ?, ?, ?)"
+    db = psycopg2.connect(  database="verceldb",
+                        host="ep-calm-paper-a4hcdu85-pooler.us-east-1.aws.neon.tech",
+                        user="default",
+                        password="cL2Ju1rktQPm",
+                        port="5432")
+
+    conn = db.cursor()
+
+    sql = "INSERT INTO items (item, quantity, date, user_id) VALUES (%s, %s, %s, %s)"
     val = (item, quantity, date, user)
 
     conn.execute(sql, val)
-    conn.commit()
+
+    db.commit()
+
+    conn.close()
 
     return
 
@@ -155,10 +230,21 @@ Ex.
 )
 """
 def getItems(user, date):
-    sql = "SELECT item, quantity FROM items WHERE user_id=? AND date=?"
+    db = psycopg2.connect(  database="verceldb",
+                        host="ep-calm-paper-a4hcdu85-pooler.us-east-1.aws.neon.tech",
+                        user="default",
+                        password="cL2Ju1rktQPm",
+                        port="5432")
+
+    conn = db.cursor()
+
+    sql = "SELECT item, quantity FROM items WHERE user_id=%s AND date=%s"
     val = (user, date)
 
-    data = list(conn.execute(sql, val))
+    conn.execute(sql, val)
+    data = conn.fetchall()
+
+    conn.close()
 
     return data
 
@@ -174,14 +260,23 @@ date - the date that the item is added
 no returns
 """
 def editItem(user, item, quantity, date):
-    sql = "UPDATE items SET quantity=? WHERE user_id=? AND item=? AND date=?"
+    db = psycopg2.connect(  database="verceldb",
+                        host="ep-calm-paper-a4hcdu85-pooler.us-east-1.aws.neon.tech",
+                        user="default",
+                        password="cL2Ju1rktQPm",
+                        port="5432")
+
+    conn = db.cursor()
+
+    sql = "UPDATE items SET quantity=%s WHERE user_id=%s AND item=%s AND date=%s"
     val = (quantity, user, item, date)
 
     if (itemExists(user, item, date) == 0):
         addItem(item, quantity, date, user)
     else:
         conn.execute(sql, val)
-        conn.commit()
+    db.commit()
+    conn.close()
     return
 
 """
@@ -196,10 +291,21 @@ returns an integer
 int of entries - exists
 """
 def itemExists(user, item, date):
-    sql = "SELECT id FROM items WHERE user_id=? AND item=? AND date=?"
+    db = psycopg2.connect(  database="verceldb",
+                        host="ep-calm-paper-a4hcdu85-pooler.us-east-1.aws.neon.tech",
+                        user="default",
+                        password="cL2Ju1rktQPm",
+                        port="5432")
+
+    conn = db.cursor()
+
+    sql = "SELECT id FROM items WHERE user_id=%s AND item=%s AND date=%s"
     val = (user, item, date)
     
-    data = list(conn.execute(sql, val))
+    conn.execute(sql, val)
+    data = conn.fetchall()
+
+    conn.close()
 
     return len(data)
 
@@ -212,14 +318,25 @@ item - a string containing the name of the item
 returns the quantity (integer)
 """
 def getTotalItems(user, item):
-    sql = "SELECT quantity FROM items WHERE user_id=? AND item=?"
+    db = psycopg2.connect(  database="verceldb",
+                        host="ep-calm-paper-a4hcdu85-pooler.us-east-1.aws.neon.tech",
+                        user="default",
+                        password="cL2Ju1rktQPm",
+                        port="5432")
+
+    conn = db.cursor()
+
+    sql = "SELECT quantity FROM items WHERE user_id=%s AND item=%s"
     val = (user, item)
 
-    data = list(conn.execute(sql, val))
+    conn.execute(sql, val)
+    data = conn.fetchall()
 
     sum = 0
     for item in data:
       sum += item[0]
+
+    conn.close()
 
     return sum
 
@@ -233,11 +350,21 @@ user - integer of user ID (Use getUserId)
 no returns
 """
 def addDG(quantity, date, user):
-    sql = "INSERT INTO daily_goals (quantity, date, user_id) VALUES (?, ?, ?)"
+    db = psycopg2.connect(  database="verceldb",
+                        host="ep-calm-paper-a4hcdu85-pooler.us-east-1.aws.neon.tech",
+                        user="default",
+                        password="cL2Ju1rktQPm",
+                        port="5432")
+
+    conn = db.cursor()
+
+    sql = "INSERT INTO daily_goals (quantity, date, user_id) VALUES (%s, %s, %s)"
     val = (quantity, date, user)
 
     conn.execute(sql, val)
-    conn.commit()
+    db.commit()
+
+    conn.close()
 
     return
 
@@ -256,10 +383,21 @@ Ex.
 )
 """
 def getDGs(user, date):
-    sql = "SELECT quantity FROM daily_goals WHERE user_id=? AND date=?"
+    db = psycopg2.connect(  database="verceldb",
+                        host="ep-calm-paper-a4hcdu85-pooler.us-east-1.aws.neon.tech",
+                        user="default",
+                        password="cL2Ju1rktQPm",
+                        port="5432")
+
+    conn = db.cursor()
+
+    sql = "SELECT quantity FROM daily_goals WHERE user_id=%s AND date=%s"
     val = (user, date)
 
-    data = list(conn.execute(sql, val))
+    conn.execute(sql, val)
+    data = conn.fetchall()
+
+    conn.close()
 
     return data
 
@@ -274,7 +412,15 @@ date - the date that the item is added
 no returns
 """
 def editDG(user, quantity, date):
-    sql = "UPDATE daily_goals SET quantity=? WHERE user_id=? AND date=?"
+    db = psycopg2.connect(  database="verceldb",
+                        host="ep-calm-paper-a4hcdu85-pooler.us-east-1.aws.neon.tech",
+                        user="default",
+                        password="cL2Ju1rktQPm",
+                        port="5432")
+
+    conn = db.cursor()
+
+    sql = "UPDATE daily_goals SET quantity=%s WHERE user_id=%s AND date=%s"
     val = (quantity, user, date)
 
 
@@ -282,7 +428,8 @@ def editDG(user, quantity, date):
         addGoal(quantity, date, user)
     else:
         conn.execute(sql, val)
-        conn.commit()
+    db.commit()
+    conn.close()
     return
 
 """
@@ -296,12 +443,22 @@ returns an integer
 int of entries - exists
 """
 def DGExists(user, date):
-    sql = "SELECT id FROM daily_goals WHERE user_id=? AND date=?"
+    db = psycopg2.connect(  database="verceldb",
+                        host="ep-calm-paper-a4hcdu85-pooler.us-east-1.aws.neon.tech",
+                        user="default",
+                        password="cL2Ju1rktQPm",
+                        port="5432")
+
+    conn = db.cursor()
+
+    sql = "SELECT id FROM daily_goals WHERE user_id=%s AND date=%s"
     val = (user, date)
     
-    data = list(conn.execute(sql, val))
+    conn.execute(sql, val)
+    data = conn.fetchall()
+
+    conn.close()
 
     return len(data)
 
-initialize()
 conn.close()
