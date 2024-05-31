@@ -9,8 +9,8 @@ html, body {
     padding: 0px;
     margin: 0%;
     background-color: var(--background2);
-    height: 100%;
-    overflow: hidden;
+    height: 140%;
+    overflow: auto !important;
 }
 
 .login-box {
