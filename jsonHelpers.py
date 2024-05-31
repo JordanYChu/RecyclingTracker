@@ -15,7 +15,6 @@ def returnAllItemValues(user, date):
     itemDict = {}
     for item in itemList:
         itemDict[item[0]] = item[1]
-    print(itemDict)
     return jsonify(itemDict)
 
 

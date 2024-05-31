@@ -326,5 +326,6 @@ def DGExists(user, date):
 
     return len(data)
 
+# initialize()
 print("Succesfully connected to DB")
 cursor.close()

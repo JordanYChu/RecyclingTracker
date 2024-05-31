@@ -43,7 +43,6 @@ def retrieve():
     if userId == -1:
         return jsonify({'error', 'noUser'})
 
-    print(userId, item, count ,date)
     editItem(userId, item, count, date)
     return jsonify({'total': json["count"]})
 
@@ -81,7 +80,6 @@ def retrieve_goals():
         return jsonify({'error', 'noUser'})
     goalList = getGoals(userId)
     if(len(goalList) == 0):
-        print("data doesn't exist")
         for i in range(9):
             addGoal(listOfCatagories[i], 50, userId)
     goalDict = {}
@@ -129,9 +127,7 @@ def input_daily_goal():
 def  new_user_request():
     json = request.json
     username = json["username"]
-    print(username)
     if(getUserId(username) == -1):
-        print("user does not exist")
         return jsonify({"login": "fail"})
     return jsonify({"login": "success"})
 
@@ -139,10 +135,7 @@ def  new_user_request():
 def login_request():
     json = request.json
     username = json["username"]
-    print(username)
     addUser(username)
     userId = getUserId(username)[0]
-    print("user id"  +str(userId))
     #give quantities
-    print("Created User...")
     return jsonify({"login": "success"})
