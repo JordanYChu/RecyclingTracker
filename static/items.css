@@ -89,6 +89,7 @@ figure > div {
 }
 
 .item-view {
+    position: sticky; 
     display: flex;
     flex-direction: row;
     height: 100%;
@@ -140,6 +141,11 @@ figure > div {
     /* height: calc(30% - 10px); */
     padding: 20px;
     background: radial-gradient(#141813, var(--background2));
+}
+
+#item-tray {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
 }
 
 .tray-image {

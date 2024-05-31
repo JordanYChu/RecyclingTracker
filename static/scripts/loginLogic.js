@@ -41,7 +41,10 @@ new_acc_but.addEventListener("click", async function() {
     const username = usernameField.value;
     const jsonData = await usernameQuery(username);
     if(jsonData['login'] == "success") {
-        alert("username already exists")
+        usernameField.classList.add("reverse")
+        usernameField.addEventListener("animationend", function() {
+            usernameField.classList.remove("reverse")
+        })
     }
     else {
         await createNewUser(username)
@@ -81,6 +84,13 @@ login_button.addEventListener("click", async function() {
         loadUsername()
         openCloseLogin()
         addSignOut()
+    }
+    else {
+        usernameField.classList.add("reverse")
+        usernameField.addEventListener("animationend", function() {
+            usernameField.classList.remove("reverse")
+        })
+
     }
 })
 

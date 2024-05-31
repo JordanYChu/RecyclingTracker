@@ -10,7 +10,9 @@ html, body {
     margin: 0%;
     background-color: var(--background2);
     height: 100%;
-    overflow: hidden;
+    overflow: auto;
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
 }
 
 .login-box {
