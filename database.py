@@ -1,16 +1,22 @@
-import sqlite3
+import psycopg2
 
 # For debugging seperately
 # Not for website instance
-cursor = sqlite3.connect("data/main.db")
+db = psycopg2.connect(  database="verceldb",
+                        host="ep-calm-paper-a4hcdu85-pooler.us-east-1.aws.neon.tech",
+                        user="default",
+                        password="cL2Ju1rktQPm",
+                        port="5432")
+
+conn = db.cursor()
 
 def initialize():
-    cursor.execute("CREATE TABLE accounts (id INTEGER PRIMARY KEY AUTOINCREMENT, username VARCHAR(255), email VARCHAR(255), password VARCHAR(255))")
-    cursor.execute("CREATE TABLE items (id INTEGER PRIMARY KEY AUTOINCREMENT, item VARCHAR(255), quantity INT, date DATE, user_id INT, FOREIGN KEY (user_id) REFERENCES accounts(id));")
-    cursor.execute("CREATE TABLE goals (id INTEGER PRIMARY KEY AUTOINCREMENT, item VARCHAR(255), quantity INT, user_id INT, FOREIGN KEY (user_id) REFERENCES accounts(id));")
-    cursor.execute("CREATE TABLE daily_goals (id INTEGER PRIMARY KEY AUTOINCREMENT, quantity INT, date DATE, user_id INT, FOREIGN KEY (user_id) REFERENCES accounts(id));")
+    conn.execute("CREATE TABLE accounts (id INTEGER PRIMARY KEY AUTOINCREMENT, username VARCHAR(255), email VARCHAR(255), password VARCHAR(255))")
+    conn.execute("CREATE TABLE items (id INTEGER PRIMARY KEY AUTOINCREMENT, item VARCHAR(255), quantity INT, date DATE, user_id INT, FOREIGN KEY (user_id) REFERENCES accounts(id));")
+    conn.execute("CREATE TABLE goals (id INTEGER PRIMARY KEY AUTOINCREMENT, item VARCHAR(255), quantity INT, user_id INT, FOREIGN KEY (user_id) REFERENCES accounts(id));")
+    conn.execute("CREATE TABLE daily_goals (id INTEGER PRIMARY KEY AUTOINCREMENT, quantity INT, date DATE, user_id INT, FOREIGN KEY (user_id) REFERENCES accounts(id));")
 
-    cursor.commit()
+    conn.commit()
 
 """
 Add a new user to a database
@@ -25,10 +31,8 @@ def addUser(username, email, password):
     sql = "INSERT INTO accounts (username, email, password) VALUES (?, ?, ?)"
     val = (username, email, password)
 
-    with sqlite3.connect("data/main.db") as conn:
-        conn.execute(sql, val)
-        conn.commit()
-    conn.close()
+    conn.execute(sql, val)
+    conn.commit()
 
     return
     
@@ -36,10 +40,8 @@ def addUser(username):
     sql = "INSERT INTO accounts (username, email, password) VALUES (?, ?, ?)"
     val = (username, "N/A", "N/A")
 
-    with sqlite3.connect("data/main.db") as conn:
-        conn.execute(sql, val)
-        conn.commit()
-    conn.close()
+    conn.execute(sql, val)
+    conn.commit()
 
     return
 
@@ -56,9 +58,7 @@ def getUserId(username):
     sql = "SELECT id FROM accounts WHERE username=?"
     val = (username,)
 
-    with sqlite3.connect("data/main.db") as conn:
-        data = list(conn.execute(sql, val))
-    conn.close()
+    data = list(conn.execute(sql, val))
 
     if (len(data) < 1):
         return -1
@@ -77,10 +77,8 @@ def addGoal(item, quantity, user):
     sql = "INSERT INTO goals (item, quantity, user_id) VALUES (?, ?, ?)"
     val = (item, quantity, user)
 
-    with sqlite3.connect("data/main.db") as conn:
-        conn.execute(sql, val)
-        conn.commit()
-    conn.close()
+    conn.execute(sql, val)
+    conn.commit()
 
     return
 
@@ -97,10 +95,8 @@ def editGoals(user, item, quantity):
     sql = "UPDATE goals SET quantity=? WHERE user_id=? AND item=?"
     val = (quantity, user, item)
 
-    with sqlite3.connect("data/main.db") as conn:
-        conn.execute(sql, val)
-        conn.commit()
-    conn.close()
+    conn.execute(sql, val)
+    conn.commit()
 
     return
 
@@ -121,9 +117,7 @@ def getGoals(user):
     sql = "SELECT item, quantity FROM goals WHERE user_id=?"
     val = (user,)
 
-    with sqlite3.connect("data/main.db") as conn:
-        data = list(conn.execute(sql, val))
-    conn.close()
+    data = list(conn.execute(sql, val))
 
     return data
 
@@ -141,10 +135,8 @@ def addItem(item, quantity, date, user):
     sql = "INSERT INTO items (item, quantity, date, user_id) VALUES (?, ?, ?, ?)"
     val = (item, quantity, date, user)
 
-    with sqlite3.connect("data/main.db") as conn:
-        conn.execute(sql, val)
-        conn.commit()
-    conn.close()
+    conn.execute(sql, val)
+    conn.commit()
 
     return
 
@@ -166,9 +158,7 @@ def getItems(user, date):
     sql = "SELECT item, quantity FROM items WHERE user_id=? AND date=?"
     val = (user, date)
 
-    with sqlite3.connect("data/main.db") as conn:
-        data = list(conn.execute(sql, val))
-    conn.close()
+    data = list(conn.execute(sql, val))
 
     return data
 
@@ -187,13 +177,11 @@ def editItem(user, item, quantity, date):
     sql = "UPDATE items SET quantity=? WHERE user_id=? AND item=? AND date=?"
     val = (quantity, user, item, date)
 
-    with sqlite3.connect("data/main.db") as conn:
-        if (itemExists(user, item, date) == 0):
-            addItem(item, quantity, date, user)
-        else:
-            conn.execute(sql, val)
-            conn.commit()
-    conn.close()
+    if (itemExists(user, item, date) == 0):
+        addItem(item, quantity, date, user)
+    else:
+        conn.execute(sql, val)
+        conn.commit()
     return
 
 """
@@ -211,9 +199,7 @@ def itemExists(user, item, date):
     sql = "SELECT id FROM items WHERE user_id=? AND item=? AND date=?"
     val = (user, item, date)
     
-    with sqlite3.connect("data/main.db") as conn:
-        data = list(conn.execute(sql, val))
-    conn.close()
+    data = list(conn.execute(sql, val))
 
     return len(data)
 
@@ -229,9 +215,7 @@ def getTotalItems(user, item):
     sql = "SELECT quantity FROM items WHERE user_id=? AND item=?"
     val = (user, item)
 
-    with sqlite3.connect("data/main.db") as conn:
-        data = list(conn.execute(sql, val))
-    conn.close()
+    data = list(conn.execute(sql, val))
 
     sum = 0
     for item in data:
@@ -252,10 +236,8 @@ def addDG(quantity, date, user):
     sql = "INSERT INTO daily_goals (quantity, date, user_id) VALUES (?, ?, ?)"
     val = (quantity, date, user)
 
-    with sqlite3.connect("data/main.db") as conn:
-        conn.execute(sql, val)
-        conn.commit()
-    conn.close()
+    conn.execute(sql, val)
+    conn.commit()
 
     return
 
@@ -277,9 +259,7 @@ def getDGs(user, date):
     sql = "SELECT quantity FROM daily_goals WHERE user_id=? AND date=?"
     val = (user, date)
 
-    with sqlite3.connect("data/main.db") as conn:
-        data = list(conn.execute(sql, val))
-    conn.close()
+    data = list(conn.execute(sql, val))
 
     return data
 
@@ -297,13 +277,12 @@ def editDG(user, quantity, date):
     sql = "UPDATE daily_goals SET quantity=? WHERE user_id=? AND date=?"
     val = (quantity, user, date)
 
-    with sqlite3.connect("data/main.db") as conn:
-        if (DGExists(user, date) == 0):
-            addGoal(quantity, date, user)
-        else:
-            conn.execute(sql, val)
-            conn.commit()
-    conn.close()
+
+    if (DGExists(user, date) == 0):
+        addGoal(quantity, date, user)
+    else:
+        conn.execute(sql, val)
+        conn.commit()
     return
 
 """
@@ -320,12 +299,9 @@ def DGExists(user, date):
     sql = "SELECT id FROM daily_goals WHERE user_id=? AND date=?"
     val = (user, date)
     
-    with sqlite3.connect("data/main.db") as conn:
-        data = list(conn.execute(sql, val))
-    conn.close()
+    data = list(conn.execute(sql, val))
 
     return len(data)
 
-# initialize()
-print("Succesfully connected to DB")
-cursor.close()
+initialize()
+conn.close()
