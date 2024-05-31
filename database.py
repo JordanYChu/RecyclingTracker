@@ -4,6 +4,14 @@ import sqlite3
 # Not for website instance
 cursor = sqlite3.connect("data/main.db")
 
+def initialize():
+    cursor.execute("CREATE TABLE accounts (id INTEGER PRIMARY KEY AUTOINCREMENT, username VARCHAR(255), email VARCHAR(255), password VARCHAR(255))")
+    cursor.execute("CREATE TABLE items (id INTEGER PRIMARY KEY AUTOINCREMENT, item VARCHAR(255), quantity INT, date DATE, user_id INT, FOREIGN KEY (user_id) REFERENCES accounts(id));")
+    cursor.execute("CREATE TABLE goals (id INTEGER PRIMARY KEY AUTOINCREMENT, item VARCHAR(255), quantity INT, user_id INT, FOREIGN KEY (user_id) REFERENCES accounts(id));")
+    cursor.execute("CREATE TABLE daily_goals (id INTEGER PRIMARY KEY AUTOINCREMENT, quantity INT, date DATE, user_id INT, FOREIGN KEY (user_id) REFERENCES accounts(id));")
+
+    cursor.commit()
+
 """
 Add a new user to a database
 
