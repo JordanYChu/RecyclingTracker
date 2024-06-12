@@ -4,6 +4,7 @@ An application that helps track how much one has recycled throughout the day.
 ## Features
 - Count recycled items throughout day
 - Global counter for total recycled products and milestones
+- Login through username
 - Goals for specific products recycled
 
 ## Pages
