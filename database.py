@@ -3,9 +3,9 @@ import psycopg2
 # For debugging seperately
 # Not for website instance
 db = psycopg2.connect(  database="verceldb",
-                        host="ep-calm-paper-a4hcdu85-pooler.us-east-1.aws.neon.tech",
+                        host="",
                         user="default",
-                        password="cL2Ju1rktQPm",
+                        password="",
                         port="5432")
 
 conn = db.cursor()
@@ -27,9 +27,9 @@ no returns
 """
 def addUser(username, email, password):
     db = psycopg2.connect(  database="verceldb",
-                        host="ep-calm-paper-a4hcdu85-pooler.us-east-1.aws.neon.tech",
+                        host="",
                         user="default",
-                        password="cL2Ju1rktQPm",
+                        password="",
                         port="5432")
 
     conn = db.cursor()
@@ -47,9 +47,9 @@ def addUser(username, email, password):
     
 def addUser(username):
     db = psycopg2.connect(  database="verceldb",
-                        host="ep-calm-paper-a4hcdu85-pooler.us-east-1.aws.neon.tech",
+                        host="",
                         user="default",
-                        password="cL2Ju1rktQPm",
+                        password="",
                         port="5432")
 
     conn = db.cursor()
@@ -76,10 +76,10 @@ integer (if username exists)
 """
 def getUserId(username):
     db = psycopg2.connect(  database="verceldb",
-                        host="ep-calm-paper-a4hcdu85-pooler.us-east-1.aws.neon.tech",
+                        host="",
                         user="default",
                         password="cL2Ju1rktQPm",
-                        port="5432")
+                        port="")
 
     conn = db.cursor()
 
@@ -106,9 +106,9 @@ no returns
 """
 def addGoal(item, quantity, user):
     db = psycopg2.connect(  database="verceldb",
-                        host="ep-calm-paper-a4hcdu85-pooler.us-east-1.aws.neon.tech",
+                        host="",
                         user="default",
-                        password="cL2Ju1rktQPm",
+                        password="",
                         port="5432")
 
     conn = db.cursor()
@@ -135,9 +135,9 @@ no returns
 """
 def editGoals(user, item, quantity):
     db = psycopg2.connect(  database="verceldb",
-                        host="ep-calm-paper-a4hcdu85-pooler.us-east-1.aws.neon.tech",
+                        host="",
                         user="default",
-                        password="cL2Ju1rktQPm",
+                        password="",
                         port="5432")
 
     conn = db.cursor()
@@ -168,9 +168,9 @@ Ex.
 """
 def getGoals(user):
     db = psycopg2.connect(  database="verceldb",
-                        host="ep-calm-paper-a4hcdu85-pooler.us-east-1.aws.neon.tech",
+                        host="",
                         user="default",
-                        password="cL2Ju1rktQPm",
+                        password="",
                         port="5432")
 
     conn = db.cursor()
@@ -197,9 +197,9 @@ no returns
 """
 def addItem(item, quantity, date, user):
     db = psycopg2.connect(  database="verceldb",
-                        host="ep-calm-paper-a4hcdu85-pooler.us-east-1.aws.neon.tech",
+                        host="",
                         user="default",
-                        password="cL2Ju1rktQPm",
+                        password="",
                         port="5432")
 
     conn = db.cursor()
@@ -231,9 +231,9 @@ Ex.
 """
 def getItems(user, date):
     db = psycopg2.connect(  database="verceldb",
-                        host="ep-calm-paper-a4hcdu85-pooler.us-east-1.aws.neon.tech",
+                        host="",
                         user="default",
-                        password="cL2Ju1rktQPm",
+                        password="",
                         port="5432")
 
     conn = db.cursor()
@@ -261,9 +261,9 @@ no returns
 """
 def editItem(user, item, quantity, date):
     db = psycopg2.connect(  database="verceldb",
-                        host="ep-calm-paper-a4hcdu85-pooler.us-east-1.aws.neon.tech",
+                        host="",
                         user="default",
-                        password="cL2Ju1rktQPm",
+                        password="",
                         port="5432")
 
     conn = db.cursor()
@@ -292,9 +292,9 @@ int of entries - exists
 """
 def itemExists(user, item, date):
     db = psycopg2.connect(  database="verceldb",
-                        host="ep-calm-paper-a4hcdu85-pooler.us-east-1.aws.neon.tech",
+                        host="",
                         user="default",
-                        password="cL2Ju1rktQPm",
+                        password="",
                         port="5432")
 
     conn = db.cursor()
@@ -319,9 +319,9 @@ returns the quantity (integer)
 """
 def getTotalItems(user, item):
     db = psycopg2.connect(  database="verceldb",
-                        host="ep-calm-paper-a4hcdu85-pooler.us-east-1.aws.neon.tech",
+                        host="",
                         user="default",
-                        password="cL2Ju1rktQPm",
+                        password="",
                         port="5432")
 
     conn = db.cursor()
@@ -351,9 +351,9 @@ no returns
 """
 def addDG(quantity, date, user):
     db = psycopg2.connect(  database="verceldb",
-                        host="ep-calm-paper-a4hcdu85-pooler.us-east-1.aws.neon.tech",
+                        host="",
                         user="default",
-                        password="cL2Ju1rktQPm",
+                        password="",
                         port="5432")
 
     conn = db.cursor()
@@ -384,9 +384,9 @@ Ex.
 """
 def getDGs(user, date):
     db = psycopg2.connect(  database="verceldb",
-                        host="ep-calm-paper-a4hcdu85-pooler.us-east-1.aws.neon.tech",
+                        host="",
                         user="default",
-                        password="cL2Ju1rktQPm",
+                        password="",
                         port="5432")
 
     conn = db.cursor()
@@ -413,9 +413,9 @@ no returns
 """
 def editDG(user, quantity, date):
     db = psycopg2.connect(  database="verceldb",
-                        host="ep-calm-paper-a4hcdu85-pooler.us-east-1.aws.neon.tech",
+                        host="",
                         user="default",
-                        password="cL2Ju1rktQPm",
+                        password="",
                         port="5432")
 
     conn = db.cursor()
@@ -444,9 +444,9 @@ int of entries - exists
 """
 def DGExists(user, date):
     db = psycopg2.connect(  database="verceldb",
-                        host="ep-calm-paper-a4hcdu85-pooler.us-east-1.aws.neon.tech",
+                        host="",
                         user="default",
-                        password="cL2Ju1rktQPm",
+                        password="",
                         port="5432")
 
     conn = db.cursor()
