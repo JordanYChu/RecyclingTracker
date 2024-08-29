@@ -1,8 +1,9 @@
 # RecylingTracker
 An application that helps track how much one has recycled throughout the day.
 
-https://recyling-tracker.vercel.app/
-https://devpost.com/software/recycling-tracker-gndrkf
+[Demo](https://recyling-tracker.vercel.app/)
+
+[Devpost](https://devpost.com/software/recycling-tracker-gndrkf]=)
 
 ## Features
 - Count recycled items throughout day
